@@ -13,14 +13,13 @@ exports.config = {
         maxInstances: 4
     },
 
-    baseUrl: 'http://localhost:8000/',
+    baseUrl: 'https://lit-basin-41473.herokuapp.com/#/customer',
 
     framework: 'jasmine',
 
     params: {
         name: 'Joe Black',
-        address: '432 Wiggly Rd, Mountain View, 94043',
-        baseURL: 'https://lit-basin-41473.herokuapp.com/#/customer'
+        address: '432 Wiggly Rd, Mountain View, 94043'
     },
 
 

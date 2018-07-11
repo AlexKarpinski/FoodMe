@@ -26,10 +26,10 @@ let homePage = function () {
     }
 
     this.openHomePage = function () {
-        logger.info(`GIVEN: User goes to ${browser.params.baseURL}`)
+        logger.info(`GIVEN: User goes to ${browser.baseURL}`)
         browser.ignoreSynchronization = true
-        browser.get(browser.params.baseURL)
-        logger.info(`AND: sets delivery data to ${browser.params.baseURL}`)
+        browser.get(browser.baseURL)
+        logger.info(`AND: sets delivery data to ${browser.baseURL}`)
         browser.wait(EC.visibilityOf(element(by.id('customerName'))), 10000)
         this.setDeliveryData(browser.params.name, browser.params.address)
         this.waitForSpecificNumberOfResultsLoading(ratingData.totalNumberOfResults)

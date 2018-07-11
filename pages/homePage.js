@@ -1,10 +1,15 @@
+let ratingData = require('../testing-data/ratingData.module.js')
+
 let homePage = function () {
 
     const BASE_URL = 'https://lit-basin-41473.herokuapp.com/#/customer'
     const NAME = 'Joe Black'
     const ADDRESS = '432 Wiggly Rd, Mountain View, 94043'
-    var log4js = require('log4js')
-    var logger = log4js.getLogger()
+
+    let log4js = require('log4js')
+    let logger = log4js.getLogger()
+
+    let ratingFilter = element(by.xpath('//fm-rating[@ng-model="$parent.filter.rating"]'))
     let nameInput = element(by.id('customerName'))
     let addressInput = element(by.id('address'))
     let findButton = element(by.buttonText('Find Restaurants!'))
@@ -35,29 +40,31 @@ let homePage = function () {
         logger.info(`AND: sets delivery data to ${BASE_URL}`)
         browser.wait(EC.visibilityOf(element(by.id('customerName'))), 10000)
         this.setDeliveryData(NAME, ADDRESS)
-        this.pageWait()
+        this.waitForSpecificNumberOfResultsLoading(ratingData.totelNumberOfResults)
     }
 
     this.reload = function () {
-
         browser.refresh()
-        this.pageWait()
+        this.waitForSpecificNumberOfResultsLoading(ratingData.totelNumberOfResults)
     }
 
-
     this.setRating = async function (rating) {
-        browser.wait(EC.visibilityOf(element(by.xpath('//fm-rating[1]'))), 10000)
-        await element(by.xpath(`//*[@ng-model="$parent.filter.rating"]//li[${rating}]`)).click()
+        browser.wait(EC.visibilityOf(ratingFilter), 10000)
+        this.getFilterElementByRating('rating', rating).click()
+        //await element(by.xpath(`//*[@ng-model="$parent.filter.rating"]//li[${rating}]`)).click()
         // browser.wait(EC.textToBePresentInElement(controlMessage, `${data.numberOfRestaurant} restaurants found`))
-        logger.info("AND waiting for results loading")
-        this.pageWait()
+        this.waitForResultsLoading()
     }
 
     this.setPrice = async function (price) {
-        browser.wait(EC.visibilityOf(element(by.xpath('//fm-rating[1]'))), 10000)
-        await element(by.xpath(`//*[@ng-model="$parent.filter.price"]//li[${price}]`)).click()
-        logger.info("AND waiting for results loading")
-        this.pageWait()
+        browser.wait(EC.visibilityOf(ratingFilter), 10000)
+        this.getFilterElementByRating('price', price).click()
+        //await element(by.xpath(`//*[@ng-model="$parent.filter.price"]//li[${price}]`)).click()
+        this.waitForResultsLoading()
+    }
+
+    this.getFilterElementByRating = function (filterName, filterValue) {
+        return element(by.xpath(`//*[@ng-model="$parent.filter.${filterName}"]//li[${filterValue}]`))
     }
 
     /*this.getRating = function () {
@@ -66,7 +73,7 @@ let homePage = function () {
     }*/
 
     this.getNumberOfRestaurants = function () {
-        this.pageWait()
+        //this.waitForResultsLoading()
         return element.all(by.xpath('//tr[@ng-repeat="restaurant in restaurants"]')).count()
     }
 
@@ -81,17 +88,21 @@ let homePage = function () {
     }
 
     this.clearRating = function () {
-        this.pageWait()
+        this.waitForResultsLoading()
         clearRatingButton.click()
     }
 
     this.clearPrice = function () {
-        this.pageWait()
+        this.waitForResultsLoading()
         clearPriceButton.click()
     }
 
-    this.pageWait = function () {
+    this.waitForResultsLoading = function () {
         browser.wait(EC.visibilityOf(controlMessage), 10000)
+    }
+
+    this.waitForSpecificNumberOfResultsLoading = function (numberOfResults) {
+        browser.wait(EC.textToBePresentInElement(controlMessage, `${numberOfResults} restaurants found`))
     }
 }
 

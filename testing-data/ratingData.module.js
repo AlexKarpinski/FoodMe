@@ -1,14 +1,14 @@
 'use strict';
 
 module.exports = {
+    totelNumberOfResults: 39,
     ratings: {
-        'ONE STAR RATING': {rating: 1, numberOfRestaurant: 4},
-        'TWO STARS RATING': {rating: 2, numberOfRestaurant: 10},
-        'THREE STARS RATING': {rating: 3, numberOfRestaurant: 7},
-        'FOUR STARS RATING': {rating: 4, numberOfRestaurant: 10},
-        'FIVE STARS RATING': {rating: 5, numberOfRestaurant: 8},
+        'ONE STAR': {rating: 1, numberOfRestaurant: 4},
+        'TWO STARS': {rating: 2, numberOfRestaurant: 10},
+        'THREE STARS': {rating: 3, numberOfRestaurant: 7},
+        'FOUR STARS': {rating: 4, numberOfRestaurant: 10},
+        'FIVE STARS': {rating: 5, numberOfRestaurant: 8},
     },
-
 
     prices: {
         'ONE STAR PRICE': {price: 1, numberOfRestaurant: 4},

@@ -26,10 +26,10 @@ let homePage = function () {
     }
 
     this.openHomePage = function () {
-        logger.info(`GIVEN: User goes to ${browser.baseURL}`)
+        logger.info(`GIVEN: User goes to ${browser.baseUrl}`)
         browser.ignoreSynchronization = true
-        browser.get(browser.baseURL)
-        logger.info(`AND: sets delivery data to ${browser.baseURL}`)
+        browser.get(browser.baseUrl)
+        logger.info(`AND: sets delivery data to ${browser.baseUrl}`)
         browser.wait(EC.visibilityOf(element(by.id('customerName'))), 10000)
         this.setDeliveryData(browser.params.name, browser.params.address)
         this.waitForSpecificNumberOfResultsLoading(ratingData.totalNumberOfResults)
@@ -80,12 +80,13 @@ let homePage = function () {
     }
 
     this.clearRating = function () {
-        this.waitForResultsLoading()
+        //this.waitForResultsLoading()
+        browser.wait(EC.visibilityOf(clearRatingButton), 10000, 'Clear link for Price filter is not visible')
         clearRatingButton.click()
     }
 
     this.clearPrice = function () {
-        this.waitForResultsLoading()
+        browser.wait(EC.visibilityOf(clearPriceButton), 10000, 'Clear link for Price filter is not visible')
         clearPriceButton.click()
     }
 
@@ -96,6 +97,11 @@ let homePage = function () {
     this.waitForSpecificNumberOfResultsLoading = function (numberOfResults) {
         browser.wait(EC.textToBePresentInElement(controlMessage, `${numberOfResults} restaurants found`))
     }
+
+    this.moveMouseToFilter = function () {
+        browser.actions().mouseMove(ratingFilter).perform()
+    }
+
 }
 
    module.exports = new homePage()

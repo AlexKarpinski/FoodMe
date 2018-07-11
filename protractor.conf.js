@@ -43,5 +43,6 @@ exports.config = {
 
         let log4js = require('log4js')
         global.logger = require('log4js').getLogger()
+        global.logger.level  =  'info'
     }
 };

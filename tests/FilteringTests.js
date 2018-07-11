@@ -6,8 +6,6 @@ let fs = require('fs')
 
 describe('Filtering: ', function () {
 
-    let logger = require('log4js').getLogger()
-    logger.level = 'info'
     let EC = protractor.ExpectedConditions
 
     beforeAll(function () {
@@ -89,59 +87,75 @@ describe('Filtering: ', function () {
     })
 
     describe('Filtering by combined parameter: ', function () {
-        using(ratingData.combinations, function (data, description) {
-            it('Rating + price combination', async function () {
 
-                //let i = 1 //Math.floor((Math.random() * 5) + 1)
-                logger.info(`WHEN User sets the rating ${(data.rating)} star`)
-                homePage.setRating((data.rating))
+        it('Rating + price combination', async function () {
 
-                logger.info(`AND User sets the price ${(data.price)} star`)
-                homePage.setPrice((data.price))
+            let indexOfDataSet = Math.floor((Math.random() * ratingData.combinations.length))
+            logger.info(`WHEN User sets the rating ${ratingData.combinations[indexOfDataSet].rating} star`)
 
-                logger.info("THEN The number of found results is correct")
-                let numberOfRestaurants = homePage.getNumberOfRestaurants()
-                expect(numberOfRestaurants).toBe(data.numberOfRestaurant)
+            homePage.setRating(ratingData.combinations[indexOfDataSet].rating)
 
-            })
+            logger.info(`AND User sets the price ${(ratingData.combinations[indexOfDataSet].price)} star`)
+            homePage.setPrice((ratingData.combinations[indexOfDataSet].price))
 
+            logger.info("THEN The number of found results is correct")
+            expect(homePage.getNumberOfRestaurants()).toBe(ratingData.combinations[indexOfDataSet].numberOfRestaurant)
 
-            xit('Price + rating combination', async function () {
-                // let i = Math.floor((Math.random() * 5) + 1)
-                logger.info(`WHEN User sets the price ${data.price} star`)
-                homePage.setPrice(data.price)
-
-                logger.info(` AND User sets the rating ${data.rating} star`)
-                homePage.setRating(data.rating)
-
-                logger.info("THEN The number of found results is correct")
-                let numberOfRestaurants = homePage.getNumberOfRestaurants()
-                expect(numberOfRestaurants).toBe(data.numberOfRestaurant)
-
-            })
-
-            xit('Rating + price clearing', async function () {
-
-                logger.info(`WHEN User sets the rating ${data.rating} star`)
-                homePage.setRating(data.rating)
-                logger.info(`AND User sets the price ${data.price} star`)
-                homePage.setPrice(data.price)
-                logger.info(`AND clicks the Clear buttons`)
-                homePage.clearPrice()
-                homePage.waitForResultsLoading()
-                homePage.clearRating()
-
-                logger.info(`THEN actual number of all restaurants is correct`)
-                expect(homePage.getNumberOfRestaurants()).toEqual(ratingData.totalNumberOfResults, "")
-            })
         })
+        it('Price + rating combination', async function () {
+            let indexOfDataSet = Math.floor((Math.random() * ratingData.combinations.length))
+            logger.info(`WHEN User sets the price ${(ratingData.combinations[indexOfDataSet].price)} star`)
+            homePage.setPrice((ratingData.combinations[indexOfDataSet].price))
+
+            logger.info(` AND User sets the rating ${ratingData.combinations[indexOfDataSet].rating} star`)
+            homePage.setRating(ratingData.combinations[indexOfDataSet].rating)
+
+            logger.info("THEN The number of found results is correct")
+            let numberOfRestaurants = homePage.getNumberOfRestaurants()
+            expect(numberOfRestaurants).toBe(ratingData.combinations[indexOfDataSet].numberOfRestaurant)
+
+        })
+
+        it('Rating + price clearing', async function () {
+
+            let indexOfDataSet = Math.floor((Math.random() * ratingData.combinations.length))
+
+            logger.info(`WHEN User sets the rating ${ratingData.combinations[indexOfDataSet].rating} star`)
+            homePage.setRating(ratingData.combinations[indexOfDataSet].rating)
+
+            logger.info(`AND User sets the price ${ratingData.combinations[indexOfDataSet].price} star`)
+            homePage.setPrice(ratingData.combinations[indexOfDataSet].price)
+
+            logger.info(`AND clicks the Clear buttons`)
+            homePage.clearPrice()
+            homePage.moveMouseToFilter()
+            homePage.clearRating()
+
+            logger.info(`THEN actual number of all restaurants is correct`)
+            expect(homePage.getNumberOfRestaurants()).toEqual(ratingData.totalNumberOfResults, "")
+        })
+
     })
 
 
     xdescribe('Filtering by cuisine: ', function () {
-       xit('Filtering by cuisine', async function () {
+        xit('Filtering by cuisine', async function () {
+            logger.info(`WHEN User sets the cuisine`)
+            //homePage.setRating(data.rating)
 
 
+            element(by.xpath('//form/div/label[1]/input')).click()
+            browser.driver.sleep(3000)
+            let name = element(by.xpath('//table/tbody/tr[2]/td[1]/a/b'))
+            browser.driver.sleep(3000)
+            expect(name.getText()).toEqual('Khartoum Khartoum');
+            console.log(name.getText())
+
+            ///html/body/div/ng-view/div/div[1]/form/div/label[1]/input
+            // /html/body/div/ng-view/div/div[1]/form/div/label[2]/input
+            //html/body/div/ng-view/div/div[2]/table/tbody/tr[2]/td[1]/a/b
+
+            ///html/body/div/ng-view/div/div[2]/table/tbody/tr[3]/td[1]/a/b
         })
 
     })

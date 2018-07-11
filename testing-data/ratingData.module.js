@@ -18,13 +18,34 @@ module.exports = {
         'FIVE STARS PRICE': {price: 5, numberOfRestaurant: 4},
     },
 
-    combinations:{
-        'FIRST PARAMETERS COMBINATION': {rating: 1, price: 2, numberOfRestaurant: 4},
-        'SECOND PARAMETERS COMBINATION': {rating: 2, price: 3, numberOfRestaurant: 7},
-        'THIRD PARAMETERS COMBINATION': {rating: 2, price: 4, numberOfRestaurant: 3},
-        'FOURTH PARAMETERS COMBINATION': {rating: 3, price: 3, numberOfRestaurant: 3},
-        'FIFTH PARAMETERS COMBINATION': {rating: 4, price: 5, numberOfRestaurant: 4},
+    combinations:
+        [
+            {
+                rating: 1,
+                price: 2,
+                numberOfRestaurant: 4
+            },
+            {
+                rating: 2,
+                price: 3,
+                numberOfRestaurant: 7
+            },
+            {
+                rating: 2,
+                price: 4,
+                numberOfRestaurant: 3
+            },
+            {
+                rating: 3,
+                price: 3,
+                numberOfRestaurant: 3
+            },
+            {
+                rating: 4,
+                price: 5,
+                numberOfRestaurant: 4
+            }
+        ]
 
-    }
 
 }

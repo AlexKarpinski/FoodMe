@@ -1,0 +1,27 @@
+{
+  "name": "angular-seed",
+  "private": true,
+  "version": "0.0.0",
+  "description": "A starter project for AngularJS",
+  "repository": "https://github.com/MariyaMitko/FoodMe",
+  "license": "MIT",
+  "devDependencies": {
+    "fs": "0.0.1-security",
+    "jasmine-allure-reporter": "^1.0.2",
+    "jasmine-core": "^2.99.1",
+    "json": "^9.0.6",
+    "log4js": "^2.10.0",
+    "protractor": "^5.3.2"
+  },
+  "scripts": {
+    "update-deps": "npm update",
+    "prestart": "npm install",
+    "update-webdriver": "webdriver-manager update",
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "protractor protractor.conf.js"
+  },
+  "dependencies": {
+    "allure-commandline": "^2.5.0",
+    "jasmine-data-provider": "^2.2.0"
+  }
+}

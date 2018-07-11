@@ -1,0 +1,12 @@
+{
+  "ratings": [
+    {
+      "rating": "1",
+      "numberOfRestaurants": 4
+    },
+    {
+      "rating": "2",
+      "numberOfRestaurants": 10
+    }
+  ]
+}

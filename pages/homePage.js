@@ -2,13 +2,6 @@ let ratingData = require('../testing-data/ratingData.module.js')
 
 let homePage = function () {
 
-    const BASE_URL = 'https://lit-basin-41473.herokuapp.com/#/customer'
-    const NAME = 'Joe Black'
-    const ADDRESS = '432 Wiggly Rd, Mountain View, 94043'
-
-    let log4js = require('log4js')
-    let logger = log4js.getLogger()
-
     let ratingFilter = element(by.xpath('//fm-rating[@ng-model="$parent.filter.rating"]'))
     let nameInput = element(by.id('customerName'))
     let addressInput = element(by.id('address'))
@@ -20,7 +13,6 @@ let homePage = function () {
 
     this.enterName = async function (name) {
         await nameInput.sendKeys(name)
-
     }
 
     this.enterAddress = async function (address) {
@@ -34,18 +26,18 @@ let homePage = function () {
     }
 
     this.openHomePage = function () {
-        logger.info(`GIVEN: User goes to ${BASE_URL}`)
+        logger.info(`GIVEN: User goes to ${browser.params.baseURL}`)
         browser.ignoreSynchronization = true
-        browser.get(BASE_URL)
-        logger.info(`AND: sets delivery data to ${BASE_URL}`)
+        browser.get(browser.params.baseURL)
+        logger.info(`AND: sets delivery data to ${browser.params.baseURL}`)
         browser.wait(EC.visibilityOf(element(by.id('customerName'))), 10000)
-        this.setDeliveryData(NAME, ADDRESS)
-        this.waitForSpecificNumberOfResultsLoading(ratingData.totelNumberOfResults)
+        this.setDeliveryData(browser.params.name, browser.params.address)
+        this.waitForSpecificNumberOfResultsLoading(ratingData.totalNumberOfResults)
     }
 
     this.reload = function () {
         browser.refresh()
-        this.waitForSpecificNumberOfResultsLoading(ratingData.totelNumberOfResults)
+        this.waitForSpecificNumberOfResultsLoading(ratingData.totalNumberOfResults)
     }
 
     this.setRating = async function (rating) {

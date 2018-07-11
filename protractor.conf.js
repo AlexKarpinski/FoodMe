@@ -17,6 +17,12 @@ exports.config = {
 
     framework: 'jasmine',
 
+    params: {
+        name: 'Joe Black',
+        address: '432 Wiggly Rd, Mountain View, 94043',
+        baseURL: 'https://lit-basin-41473.herokuapp.com/#/customer'
+    },
+
 
     jasmineNodeOpts: {
         defaultTimeoutInterval: 30000
@@ -35,5 +41,8 @@ exports.config = {
                 done();
             })
         });
+
+        let log4js = require('log4js')
+        global.logger = require('log4js').getLogger()
     }
 };

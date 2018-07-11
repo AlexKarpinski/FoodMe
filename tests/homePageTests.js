@@ -24,7 +24,7 @@ describe('Rating Filter test', function () {
 
 
     using(ratingData.ratings, function (data, description) {
-        xit('checking of the rating filter: ' + description + ' stars', async function () {
+        it('Filter by rating: ' + description + ' stars', async function () {
 
             logger.info(`WHEN User sets the rating ${data.rating} star`)
             homePage.setRating(data.rating)
@@ -60,5 +60,37 @@ describe('Rating Filter test', function () {
         })
     })
 
+    it('Clear the rating', async function () {
+
+        homePage.pageWait()
+        let numberOfRetaurantsBeforeFiltering =  homePage.getNumberOfRestaurants()
+
+        logger.info("WHEN User sets the rating")
+        homePage.setRating(Math.floor((Math.random() * 5) + 1))
+
+        logger.info(`AND clicks the Clear button`)
+        homePage.clearRating()
+
+        logger.info(`THEN actual number of all restaurants`)
+        expect(homePage.getNumberOfRestaurants()).toEqual(numberOfRetaurantsBeforeFiltering, "")
+
+
+    })
+    it('Clear the price', async function () {
+
+        homePage.pageWait()
+        let numberOfRetaurantsBeforeFiltering =  homePage.getNumberOfRestaurants()
+
+        logger.info("WHEN User sets the rating")
+        homePage.setPrice(Math.floor((Math.random() * 5) + 1))
+
+        logger.info(`AND clicks the Clear button`)
+        homePage.clearPrice()
+
+        logger.info(`THEN actual number of all restaurants`)
+        expect(homePage.getNumberOfRestaurants()).toEqual(numberOfRetaurantsBeforeFiltering, "")
+
+
+    })
 
 })

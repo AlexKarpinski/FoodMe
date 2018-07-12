@@ -10,6 +10,7 @@ let homePage = function () {
     let controlMessage = element(by.xpath('//div[contains(@class,"fm-restaurant-list")]//ng-pluralize'))
     let clearRatingButton = element(by.xpath('//form/fm-rating[1]/a[@ng-click = "select(null)"]'))
     let clearPriceButton = element(by.xpath('//form/fm-rating[2]/a[@ng-click = "select(null)"]'))
+    let restaurantName = element.all(by.xpath('//table/tbody/tr/td[1]/a/b'))
 
     this.enterName = async function (name) {
         await nameInput.sendKeys(name)
@@ -43,15 +44,12 @@ let homePage = function () {
     this.setRating = async function (rating) {
         browser.wait(EC.visibilityOf(ratingFilter), 10000)
         this.getFilterElementByRating('rating', rating).click()
-        //await element(by.xpath(`//*[@ng-model="$parent.filter.rating"]//li[${rating}]`)).click()
-        // browser.wait(EC.textToBePresentInElement(controlMessage, `${data.numberOfRestaurant} restaurants found`))
         this.waitForResultsLoading()
     }
 
     this.setPrice = async function (price) {
         browser.wait(EC.visibilityOf(ratingFilter), 10000)
         this.getFilterElementByRating('price', price).click()
-        //await element(by.xpath(`//*[@ng-model="$parent.filter.price"]//li[${price}]`)).click()
         this.waitForResultsLoading()
     }
 
@@ -59,13 +57,7 @@ let homePage = function () {
         return element(by.xpath(`//*[@ng-model="$parent.filter.${filterName}"]//li[${filterValue}]`))
     }
 
-    /*this.getRating = function () {
-        let list = element.all(by.xpath('//tr[@ng-repeat = "restaurant in restaurants"]'))
-        return list.count()
-    }*/
-
     this.getNumberOfRestaurants = function () {
-        //this.waitForResultsLoading()
         return element.all(by.xpath('//tr[@ng-repeat="restaurant in restaurants"]')).count()
     }
 
@@ -80,7 +72,6 @@ let homePage = function () {
     }
 
     this.clearRating = function () {
-        //this.waitForResultsLoading()
         browser.wait(EC.visibilityOf(clearRatingButton), 10000, 'Clear link for Price filter is not visible')
         clearRatingButton.click()
     }
@@ -89,6 +80,15 @@ let homePage = function () {
         browser.wait(EC.visibilityOf(clearPriceButton), 10000, 'Clear link for Price filter is not visible')
         clearPriceButton.click()
     }
+
+    this.setCuisine = function (type) {
+        element(by.xpath(`//ng-view/div/div[1]/form/div/label/input[@value = '${type}']`)).click()
+    }
+
+    this.getListOfRestaurants = function (type) {
+        return restaurantName
+    }
+
 
     this.waitForResultsLoading = function () {
         browser.wait(EC.visibilityOf(controlMessage), 10000)

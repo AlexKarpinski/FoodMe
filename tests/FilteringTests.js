@@ -86,9 +86,9 @@ describe('Filtering: ', function () {
         })
     })
 
-    describe('Filtering by combined parameter: ', function () {
+    xdescribe('Filtering by combined parameter: ', function () {
 
-        it('Rating + price combination', async function () {
+        xit('Rating + price combination', async function () {
 
             let indexOfDataSet = Math.floor((Math.random() * ratingData.combinations.length))
             logger.info(`WHEN User sets the rating ${ratingData.combinations[indexOfDataSet].rating} star`)
@@ -102,7 +102,7 @@ describe('Filtering: ', function () {
             expect(homePage.getNumberOfRestaurants()).toBe(ratingData.combinations[indexOfDataSet].numberOfRestaurant)
 
         })
-        it('Price + rating combination', async function () {
+        xit('Price + rating combination', async function () {
             let indexOfDataSet = Math.floor((Math.random() * ratingData.combinations.length))
             logger.info(`WHEN User sets the price ${(ratingData.combinations[indexOfDataSet].price)} star`)
             homePage.setPrice((ratingData.combinations[indexOfDataSet].price))
@@ -116,7 +116,7 @@ describe('Filtering: ', function () {
 
         })
 
-        it('Rating + price clearing', async function () {
+        xit('Rating + price clearing', async function () {
 
             let indexOfDataSet = Math.floor((Math.random() * ratingData.combinations.length))
 
@@ -138,25 +138,17 @@ describe('Filtering: ', function () {
     })
 
 
-    xdescribe('Filtering by cuisine: ', function () {
-        xit('Filtering by cuisine', async function () {
+    describe('Filtering by cuisine: ', function () {
+        it('Filtering by cuisine', async function () {
+
             logger.info(`WHEN User sets the cuisine`)
-            //homePage.setRating(data.rating)
+            let indexOfDataSet = Math.floor((Math.random() * ratingData.cuisine.length))
+            homePage.setCuisine(ratingData.cuisine[indexOfDataSet].type)
 
+            logger.info("THEN The set of found restaurants is correct")
+            let list = homePage.getListOfRestaurants()
+            expect(list.getText()).toEqual(ratingData.cuisine[indexOfDataSet].restaurants);
 
-            element(by.xpath('//form/div/label[1]/input')).click()
-            browser.driver.sleep(3000)
-            let name = element(by.xpath('//table/tbody/tr[2]/td[1]/a/b'))
-            browser.driver.sleep(3000)
-            expect(name.getText()).toEqual('Khartoum Khartoum');
-            console.log(name.getText())
-
-            ///html/body/div/ng-view/div/div[1]/form/div/label[1]/input
-            // /html/body/div/ng-view/div/div[1]/form/div/label[2]/input
-            //html/body/div/ng-view/div/div[2]/table/tbody/tr[2]/td[1]/a/b
-
-            ///html/body/div/ng-view/div/div[2]/table/tbody/tr[3]/td[1]/a/b
         })
-
     })
 })

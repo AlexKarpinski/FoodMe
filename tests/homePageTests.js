@@ -6,18 +6,16 @@ let fs = require('fs')
 
 describe('Filtering: ', function () {
 
-    let EC = protractor.ExpectedConditions
-
     beforeAll(function () {
         homePage.openHomePage()
     })
-
     afterEach(function () {
         homePage.reload()
     })
-    xdescribe('Filtering by rating: ', function () {
+
+    describe('Filtering by rating: ', function () {
         using(ratingData.ratings, function (data, description) {
-            xit('Rating: ' + description + ' stars', async function () {
+            it('Rating: ' + description + ' stars', async function () {
 
                 logger.info(`WHEN User sets the rating ${data.rating} star`)
                 homePage.setRating(data.rating)
@@ -34,7 +32,7 @@ describe('Filtering: ', function () {
             })
         })
 
-        xit('Clear the rating', async function () {
+        it('Clear the rating', async function () {
 
             // homePage.waitForResultsLoading()
             // let numberOfRetaurantsBeforeFiltering =  homePage.getNumberOfRestaurants()
@@ -50,9 +48,9 @@ describe('Filtering: ', function () {
 
         })
     })
-    xdescribe('Filtering by price: ', function () {
+    describe('Filtering by price: ', function () {
         using(ratingData.prices, function (data, description) {
-            xit('Price: ' + description + ' stars', async function () {
+            it('Price: ' + description + ' stars', async function () {
 
                 logger.info(`WHEN User sets the price ${data.price} star`)
                 homePage.setPrice(data.price)
@@ -69,7 +67,7 @@ describe('Filtering: ', function () {
             })
         })
 
-        xit('Clear the price', async function () {
+        it('Clear the price', async function () {
 
             //homePage.waitForResultsLoading()
             //let numberOfRetaurantsBeforeFiltering =  homePage.getNumberOfRestaurants()
@@ -86,9 +84,9 @@ describe('Filtering: ', function () {
         })
     })
 
-    xdescribe('Filtering by combined parameter: ', function () {
+    describe('Filtering by combined parameter: ', function () {
 
-        xit('Rating + price combination', async function () {
+        it('Rating + price combination', async function () {
 
             let indexOfDataSet = Math.floor((Math.random() * ratingData.combinations.length))
             logger.info(`WHEN User sets the rating ${ratingData.combinations[indexOfDataSet].rating} star`)
@@ -102,7 +100,7 @@ describe('Filtering: ', function () {
             expect(homePage.getNumberOfRestaurants()).toBe(ratingData.combinations[indexOfDataSet].numberOfRestaurant)
 
         })
-        xit('Price + rating combination', async function () {
+        it('Price + rating combination', async function () {
             let indexOfDataSet = Math.floor((Math.random() * ratingData.combinations.length))
             logger.info(`WHEN User sets the price ${(ratingData.combinations[indexOfDataSet].price)} star`)
             homePage.setPrice((ratingData.combinations[indexOfDataSet].price))
@@ -116,7 +114,7 @@ describe('Filtering: ', function () {
 
         })
 
-        xit('Rating + price clearing', async function () {
+        it('Rating + price clearing', async function () {
 
             let indexOfDataSet = Math.floor((Math.random() * ratingData.combinations.length))
 

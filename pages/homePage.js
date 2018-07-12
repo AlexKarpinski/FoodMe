@@ -6,7 +6,6 @@ let homePage = function () {
     let nameInput = element(by.id('customerName'))
     let addressInput = element(by.id('address'))
     let findButton = element(by.buttonText('Find Restaurants!'))
-    let EC = protractor.ExpectedConditions
     let controlMessage = element(by.xpath('//div[contains(@class,"fm-restaurant-list")]//ng-pluralize'))
     let clearRatingButton = element(by.xpath('//form/fm-rating[1]/a[@ng-click = "select(null)"]'))
     let clearPriceButton = element(by.xpath('//form/fm-rating[2]/a[@ng-click = "select(null)"]'))
@@ -27,12 +26,13 @@ let homePage = function () {
     }
 
     this.openHomePage = function () {
-        logger.info(`GIVEN: User goes to ${browser.baseUrl}`)
+        logger.info(`GIVEN: User goes to the main page: ${browser.baseUrl}`)
         browser.ignoreSynchronization = true
         browser.get(browser.baseUrl)
-        logger.info(`AND: sets delivery data to ${browser.baseUrl}`)
+        logger.info(`WHEN: User sets delivery data to the customer form: ${browser.params.name}, ${browser.params.address}`)
         browser.wait(EC.visibilityOf(element(by.id('customerName'))), 10000)
         this.setDeliveryData(browser.params.name, browser.params.address)
+        logger.info(`THEN User is redirected to the homePage that contains ${ratingData.totalNumberOfResults}`)
         this.waitForSpecificNumberOfResultsLoading(ratingData.totalNumberOfResults)
     }
 

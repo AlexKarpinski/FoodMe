@@ -4,7 +4,7 @@ exports.config = {
     allScriptsTimeout: 11000,
 
     specs: [
-        './tests/*.js'
+        './tests/orderPageTests.js'
     ],
 
     capabilities: {
@@ -43,6 +43,7 @@ exports.config = {
 
         let log4js = require('log4js')
         global.logger = require('log4js').getLogger()
-        global.logger.level  =  'info'
+        global.logger.level = 'info'
+        global.EC = protractor.ExpectedConditions
     }
 };

@@ -48,60 +48,63 @@ module.exports = {
         ],
 
     cuisine:
-    [
-        {
-            type: "african",
-            restaurants: ["Khartoum Khartoum", "Carthage"],
-        },
-        {
-            type:"american",
-            restaurants: ["Sally's Diner", "Burgerama"],
-        },
-        {
-            type:"barbecue",
-            restaurants: ["Saucy Piggy", "Three Little Pigs"],
-        },
-        {
-            type:"cafe",
-            restaurants: ["North by Northwest", "Full of Beans", "Tropical Jeeve's Cafe", "Zardoz Cafe"],
-        },
-        {
-            type:"chinese",
-            restaurants: ["Beijing Express", "Dragon's Tail", "Super Wonton Express", "Shandong Lu"],
-        },
-        {
-            type:"czech/slovak",
-            restaurants: ["Czech Point", "Little Prague"],
-        },
-        {
-            type:"german",
-            restaurants: ["Esther's German Saloon", "Der Speisewagen", "Kohl Haus"],
-        },
-        {
-            type:"indian",
-            restaurants: ["Curry Up", "Birmingham Bhangra", "Naan Sequitur", "Curry Galore"],
-        },
-        {
-            type:"japanese",
-            restaurants: ["Robatayaki Hachi", "Sakura"],
-        },
-        {
-            type:"mexican",
-            restaurants: ["Cancun", "The Whole Tamale", "Taqueria", "Pedro's"],
-        },
-        {
-            type:"pizza",
-            restaurants: ["Angular Pizza", "Flavia", "Luigi's House of Pies", "Thick and Thin", "When in Rome", "Pizza 76"],
-        },
-        {
-            type:"thai",
-            restaurants: ["Satay Village", "Hit Me Baby One More Thai"],
-        },
-        {
-            type:"vegetarian",
-            restaurants: ["BBQ Tofu Paradise"],
-        }
+        [
+            {
+                type: "african",
+                restaurants: ["Khartoum Khartoum", "Carthage"],
+            },
+            {
+                type: "american",
+                restaurants: ["Sally's Diner", "Burgerama"],
+            },
+            {
+                type: "barbecue",
+                restaurants: ["Saucy Piggy", "Three Little Pigs"],
+            },
+            {
+                type: "cafe",
+                restaurants: ["North by Northwest", "Full of Beans", "Tropical Jeeve's Cafe", "Zardoz Cafe"],
+            },
+            {
+                type: "chinese",
+                restaurants: ["Beijing Express", "Dragon's Tail", "Super Wonton Express", "Shandong Lu"],
+            },
+            {
+                type: "czech/slovak",
+                restaurants: ["Czech Point", "Little Prague"],
+            },
+            {
+                type: "german",
+                restaurants: ["Esther's German Saloon", "Der Speisewagen", "Kohl Haus"],
+            },
+            {
+                type: "indian",
+                restaurants: ["Curry Up", "Birmingham Bhangra", "Naan Sequitur", "Curry Galore"],
+            },
+            {
+                type: "japanese",
+                restaurants: ["Robatayaki Hachi", "Sakura"],
+            },
+            {
+                type: "mexican",
+                restaurants: ["Cancun", "The Whole Tamale", "Taqueria", "Pedro's"],
+            },
+            {
+                type: "pizza",
+                restaurants: ["Angular Pizza", "Flavia", "Luigi's House of Pies", "Thick and Thin", "When in Rome", "Pizza 76"],
+            },
+            {
+                type: "thai",
+                restaurants: ["Satay Village", "Hit Me Baby One More Thai"],
+            },
+            {
+                type: "vegetarian",
+                restaurants: ["BBQ Tofu Paradise"],
+            }
 
 
-]
+        ]
+
+
+
 }

@@ -4,7 +4,7 @@ exports.config = {
     allScriptsTimeout: 11000,
 
     specs: [
-        './tests/*.js'
+        './tests/checkoutPageTest.js'
     ],
 
     capabilities: {

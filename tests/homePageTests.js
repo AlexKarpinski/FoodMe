@@ -2,9 +2,8 @@ let ratingData = require('../testing-data/ratingData.module.js')
 let homePage = require('../pages/homePage.js')
 
 let using = require('jasmine-data-provider')
-let fs = require('fs')
 
-describe('Filtering: ', function () {
+describe('Home Page: ', function () {
 
     beforeAll(function () {
         homePage.openHomePage()
@@ -13,10 +12,9 @@ describe('Filtering: ', function () {
         homePage.reload()
     })
 
-    describe('Filtering by rating: ', function () {
+    describe('Filter by rating: ', function () {
         using(ratingData.ratings, function (data, description) {
             it('Rating: ' + description + ' stars', async function () {
-
                 logger.info(`WHEN User sets the rating ${data.rating} star`)
                 homePage.setRating(data.rating)
 
@@ -27,15 +25,12 @@ describe('Filtering: ', function () {
 
                 for (let i = 0; i < numberOfRestaurants; i++) {
                     logger.info(`AND The number of stars is equal to the set up rating`)
-                    expect(homePage.getRatingValue(i)).toBe(data.rating)
+                    expect(homePage.getRatingValueForRestaurantInList(i)).toBe(data.rating)
                 }
             })
         })
 
         it('Clear the rating', async function () {
-
-            // homePage.waitForResultsLoading()
-            // let numberOfRetaurantsBeforeFiltering =  homePage.getNumberOfRestaurants()
 
             logger.info("WHEN User sets the rating")
             homePage.setRating(Math.floor((Math.random() * 5) + 1))
@@ -48,7 +43,7 @@ describe('Filtering: ', function () {
 
         })
     })
-    describe('Filtering by price: ', function () {
+    describe('Filter by price: ', function () {
         using(ratingData.prices, function (data, description) {
             it('Price: ' + description + ' stars', async function () {
 
@@ -62,7 +57,7 @@ describe('Filtering: ', function () {
 
                 for (let i = 0; i < numberOfRestaurants; i++) {
                     logger.info(`AND The number of stars is equal to the set up price`)
-                    expect(homePage.getPriceValue(i)).toBe(data.price)
+                    expect(homePage.getPriceValueForRestaurantInList(i)).toBe(data.price)
                 }
             })
         })
@@ -83,11 +78,8 @@ describe('Filtering: ', function () {
 
         })
     })
-
-    describe('Filtering by combined parameter: ', function () {
-
+    describe('Filter by combined parameter: ', function () {
         it('Rating + price combination', async function () {
-
             let indexOfDataSet = Math.floor((Math.random() * ratingData.combinations.length))
             logger.info(`WHEN User sets the rating ${ratingData.combinations[indexOfDataSet].rating} star`)
 
@@ -113,7 +105,6 @@ describe('Filtering: ', function () {
             expect(numberOfRestaurants).toBe(ratingData.combinations[indexOfDataSet].numberOfRestaurant)
 
         })
-
         it('Rating + price clearing', async function () {
 
             let indexOfDataSet = Math.floor((Math.random() * ratingData.combinations.length))
@@ -132,20 +123,15 @@ describe('Filtering: ', function () {
             logger.info(`THEN actual number of all restaurants is correct`)
             expect(homePage.getNumberOfRestaurants()).toEqual(ratingData.totalNumberOfResults, "")
         })
-
     })
-
-
-    describe('Filtering by cuisine: ', function () {
-        it('Filtering by cuisine', async function () {
-
+    describe('Filter by cuisine: ', function () {
+        it('random set of cuisines', async function () {
             logger.info(`WHEN User sets the cuisine`)
             let indexOfDataSet = Math.floor((Math.random() * ratingData.cuisine.length))
             homePage.setCuisine(ratingData.cuisine[indexOfDataSet].type)
 
             logger.info("THEN The set of found restaurants is correct")
-            let list = homePage.getListOfRestaurants()
-            expect(list.getText()).toEqual(ratingData.cuisine[indexOfDataSet].restaurants);
+            expect((homePage.getListOfRestaurantNames()).getText()).toEqual(ratingData.cuisine[indexOfDataSet].restaurants);
 
         })
     })

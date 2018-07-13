@@ -1,6 +1,6 @@
 let homePage = require('../pages/homePage.js')
 let orderPage = require('../pages/orderPage.js')
-let helper = require('../testing-data/Helper.js')
+let helper = require('../helper/helper.js')
 var dateFormat = require('dateformat')
 let checkoutPage = function () {
 
@@ -11,50 +11,27 @@ let checkoutPage = function () {
     let cvcField = element(by.xpath("//input[@name = 'ccCvc']"))
     let purchaseButton = element(by.xpath("//ng-view/form/div/div[2]/div/button[@ng-click = 'purchase()']"))
 
-    const START_DATE = new Date()
-    const END_DATE = new Date (2025, 0, 1)
+    const MIN_CARD_EXPIRATION_DATE = new Date()
+    const MAX_CARD_EXPIRATION_DATE = new Date (2025, 0, 1)
 
-
-    this.clickOnTheCheckoutButton = function () {
-        // browser.wait(EC.visibilityOf(checkoutButton), 10000)
-
+    this.clickCheckoutButton = function () {
         checkoutButton.click()
     }
     this.generateValidCardNumber = async function () {
         return helper.getRandomNumeric(16)
     }
 
-
     this.setCardNumber = async function (cardNumberValue) {
         cardNumberField.sendKeys(cardNumberValue)
     }
-        /*let cardNumberValue
-        switch (typeOfSymbolsSet) {
-            case 'correctSet':
-                cardNumberValue = this.getRandomNumeric(length)
-                break;
-            case 'incompleteSet':
-                cardNumberValue = this.getRandomNumeric(length)
-                break;
-            case 'incorrectCompleteSet':
-                cardNumberValue = this.getRandomSymbol(length)
-                break;
-
-        }
-        logger.info(cardNumberValue + "This is the value")
-        cardNumberField.sendKeys(cardNumberValue)*/
-
-
 
     this.generateValidExpireDate = () => {
-        let expireDate = new Date(START_DATE.getTime() + Math.random() * (END_DATE.getTime() - START_DATE.getTime()))
-        //let inputExpireDate = (expireDate.getMonth()+ 1) + "/" + expireDate.getFullYear()
+        let expireDate = new Date(MIN_CARD_EXPIRATION_DATE.getTime() +
+            Math.random() * (MAX_CARD_EXPIRATION_DATE.getTime() - MIN_CARD_EXPIRATION_DATE.getTime()))
         return dateFormat(expireDate, "mm/yyyy");
-
     }
 
-
-    this.setExpireDate = async function (expireDate) {
+    this.setExpireDate = function (expireDate) {
         expireDateField.sendKeys(expireDate)
     }
 
@@ -63,12 +40,8 @@ let checkoutPage = function () {
         cvcField.sendKeys(cvcValue)
 
     }
-    this.setCvc = async function (cvcValue) {
+    this.setCvc = function (cvcValue) {
         cvcField.sendKeys(cvcValue)
-    }
-    this.reload = function () {
-        browser.refresh()
-
     }
 
     this.selectCardType = async function (cardType) {
@@ -76,27 +49,14 @@ let checkoutPage = function () {
         await inputCardTypeField.$(`[value="${cardType}"]`).click()
     }
 
-    this.purchaseButtonIsEnabled = async function () {
+    this.isPurchaseButtonEnabled = async function () {
         return purchaseButton.isEnabled()
-
-    }
-
-    this.clearingOfInputFields = async function () {
-        await inputCardTypeField.clear()
-        await expireDateField.clear()
-        await cvcField.clear()
-
-
     }
 
     this.getFieldBorderColor = async function () {
+
         return cardNumberField.getCssValue('border-color')
-
     }
-
-
-
 }
-
 
 module.exports = new checkoutPage()

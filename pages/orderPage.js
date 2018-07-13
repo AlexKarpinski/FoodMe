@@ -1,4 +1,5 @@
 let homePage = require('../pages/homePage.js')
+let helper = require('../helper/helper.js');
 
 let orderPage = function () {
     let countOfDishes
@@ -6,6 +7,7 @@ let orderPage = function () {
     let listOfOrderedDishes = element.all(by.xpath('//ng-view/div[2]/div[2]/form/ul/li[@ng-repeat = "item in cart.items"]'))
     let menu = element(by.xpath('//ng-view/div[2]/div[1]/ul/li[1]/a'))
     let totalSum = element(by.xpath('//ng-view/div[2]/div[2]/form/p/b'))
+    let checkoutButton = element(by.xpath("//div[@ng-show = 'cart.items.length']"))
 
     this.openOrderForRestaurantByIndex = function (restaurantIndex) {
         homePage.openHomePage()
@@ -91,28 +93,37 @@ let orderPage = function () {
         return sum.toFixed(2)
     }
 
-    this.addRandomDishesToOrder = async function () {
+
+    this.addRandomDishesToOrder = async function (dishesData) {
+        for (let dishIndex of dishesData.keys()) {
+            this.chooseDishByIndex(dishIndex, dishesData.get(dishIndex))
+        }
+        this.waitForTotalSumLoading(await this.calculateOrderSum(dishesData))
+    }
+
+    this.waitForTotalSumLoading = async function (totalSum) {
+        browser.wait(EC.visibilityOf(`//*[contains(text(),"Total: $${totalSum}")]`), 10000,
+            `Actual value of sum ${await totalSum.getText()}`)
+    }
+
+    this.generateDishesData = async function () {
+        const MAX_NUMBER_OF_PORTIONS = 10
         let totalCountOfDishes = await this.getTotalCountOfDishes()
-        let countOfPositionsToAdd = Math.floor(Math.random() * totalCountOfDishes)
-
+        let countOfPositionsToAdd = helper.getRandomInt(1, totalCountOfDishes)
         let dishesAddedToOrder = new Map()
-
         for (let i = 0; i < countOfPositionsToAdd; i++) {
-            // index of dishes to add
-            let indexOfDish = Math.floor(Math.random() * totalCountOfDishes)
-            //logger.info("indexOfDish: " + indexOfDish)
+            let indexOfDish = helper.getRandomInt(0, totalCountOfDishes)
             if (dishesAddedToOrder.has(indexOfDish) == false) {
-                // how many times to add
-                let numberTimesToAdd = Math.floor(Math.random() * 6) + 1
-                logger.info("indexOfDish: " + indexOfDish + "--------" + "numberTimesToAdd: " + numberTimesToAdd)
-                this.chooseDishByIndex(indexOfDish, numberTimesToAdd)
-                dishesAddedToOrder.set(indexOfDish, numberTimesToAdd)
+                let numberOfTimesToAdd = helper.getRandomInt(1, MAX_NUMBER_OF_PORTIONS)
+                dishesAddedToOrder.set(indexOfDish, numberOfTimesToAdd)
             } else {
                 i--
             }
         }
         for (let dishIndex of dishesAddedToOrder.keys()) {
-            console.log(dishIndex + "-----" + dishesAddedToOrder.get(dishIndex) + "-----" + await this.getDishPriceByIndex(dishIndex) + "-----" + await this.getDishNameByIndex(dishIndex))
+            console.log(dishIndex + "---" + dishesAddedToOrder.get(dishIndex) +
+                "---" + await this.getDishPriceByIndex(dishIndex) +
+                "---" + await this.getDishNameByIndex(dishIndex))
         }
         return dishesAddedToOrder
     }
@@ -123,6 +134,32 @@ let orderPage = function () {
         let orderSum = sum.substring(8)
         return orderSum
     }
+
+    this.isTotalSumCorrect = async function (expectedTotalSum) {
+        browser.wait(EC.visibilityOf(`//*[contains(text(),"Total: $${expectedTotalSum}")]`), 10000,
+            `Actual value of sum ${await totalSum.getText()}`)
+        return await (await totalSum.getText()).substring(8)
+    }
+
+    //        await orderPage.addRandomDishesToOrder(await orderPage.generateDishesData());
+    //await checkoutPage.clickCheckoutButton();
+
+    this.checkoutOrder = async function () {
+        /*   browser.wait(EC.visibilityOf(`//*[contains(text(),"Total: $${expectedTotalSum}")]`), 10000,
+               `Actual value of sum ${await expectedTotalSum.getText()}`)*/
+        checkoutButton.click()
+    }
+
+    this.createOrder = async function () {
+        logger.info("WHEN User user adds dishes into the order")
+        let dishesData = this.generateDishesData()
+        await this.addRandomDishesToOrder(await dishesData)
+        let expectedTotalSum = await this.calculateOrderSum(await dishesData)
+        logger.info("THEN total sum is correct: " + await expectedTotalSum)
+       /* browser.wait(await this.isTotalSumCorrect(expectedTotalSum), 10000,
+            `Actual value of sum is not correct`)*/
+    }
+
 }
 
 module.exports = new orderPage()

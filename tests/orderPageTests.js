@@ -1,11 +1,12 @@
 let orderPage = require('../pages/orderPage.js')
 let ratingData = require('../testing-data/ratingData.module.js')
+let helper = require('../helper/helper.js');
 
 describe('Order:: ', function () {
 
     beforeAll(function () {
         logger.info("TEST PREPARATION")
-        let randomRestaurantIndex = Math.floor((Math.random() * ratingData.totalNumberOfResults))
+        let randomRestaurantIndex = helper.getRandomInt(0, ratingData.totalNumberOfResults)
         orderPage.openOrderForRestaurantByIndex(randomRestaurantIndex)
         logger.info("PREPARATION COMPLETED")
     })
@@ -14,15 +15,13 @@ describe('Order:: ', function () {
     })
 
     describe('Testing of the order list: ', function () {
-
         it('Checking of the ordered dishes list and order total sum: ', async function () {
-
             logger.info("WHEN User user adds dishes into the order")
-            let dishesAddedToOrder = await orderPage.addRandomDishesToOrder()
-            let expectedTotalSum = await orderPage.calculateOrderSum(dishesAddedToOrder)
-
-            logger.info("THEN total sum is correct: " + expectedTotalSum)
-            expect(await orderPage.getTotalSum()).toBe(expectedTotalSum)
+            let dishesData = orderPage.generateDishesData()
+            orderPage.addRandomDishesToOrder(await dishesData)
+            let expectedTotalSum = await orderPage.calculateOrderSum(await dishesData)
+            logger.info("THEN total sum is correct: " + await expectedTotalSum)
+            expect(orderPage.isTotalSumCorrect(await expectedTotalSum)).toBe(true, "Total sum is wrong")
         })
     })
 })

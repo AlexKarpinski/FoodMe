@@ -9,7 +9,7 @@ let homePage = function () {
     let controlMessage = element(by.xpath('//div[contains(@class,"fm-restaurant-list")]//ng-pluralize'))
     let clearRatingButton = element(by.xpath('//form/fm-rating[1]/a[@ng-click = "select(null)"]'))
     let clearPriceButton = element(by.xpath('//form/fm-rating[2]/a[@ng-click = "select(null)"]'))
-    let restaurantName = element.all(by.xpath('//table/tbody/tr/td[1]/a/b'))
+    let listOfRestaurantNames = element.all(by.xpath('//table/tbody/tr/td[1]/a/b'))
 
     this.enterName = async function (name) {
         await nameInput.sendKeys(name)
@@ -19,7 +19,7 @@ let homePage = function () {
         await addressInput.sendKeys(address)
     }
 
-    this.setDeliveryData = async function (name, address) {
+    this.submitCutomerData = async function (name, address) {
         this.enterName(name)
         this.enterAddress(address)
         await findButton.click()
@@ -29,9 +29,20 @@ let homePage = function () {
         logger.info(`GIVEN: User goes to the main page: ${browser.baseUrl}`)
         browser.ignoreSynchronization = true
         browser.get(browser.baseUrl)
-        logger.info(`WHEN: User sets delivery data to the customer form: ${browser.params.name}, ${browser.params.address}`)
+        logger.info(`WHEN: User submit data in the customer form: ${browser.params.name}, ${browser.params.address}`)
         browser.wait(EC.visibilityOf(element(by.id('customerName'))), 10000)
-        this.setDeliveryData(browser.params.name, browser.params.address)
+        this.submitCutomerData(browser.params.name, browser.params.address)
+        logger.info(`THEN User is redirected to the homePage that contains ${ratingData.totalNumberOfResults}`)
+        this.waitForSpecificNumberOfResultsLoading(ratingData.totalNumberOfResults)
+    }
+
+    this.open = function () {
+        logger.info(`GIVEN: User goes to the main page: ${browser.baseUrl}`)
+        browser.ignoreSynchronization = true
+        browser.get(browser.baseUrl)
+        logger.info(`WHEN: User submit data in the customer form: ${browser.params.name}, ${browser.params.address}`)
+        browser.wait(EC.visibilityOf(element(by.id('customerName'))), 10000)
+        this.submitCutomerData(browser.params.name, browser.params.address)
         logger.info(`THEN User is redirected to the homePage that contains ${ratingData.totalNumberOfResults}`)
         this.waitForSpecificNumberOfResultsLoading(ratingData.totalNumberOfResults)
     }
@@ -44,6 +55,7 @@ let homePage = function () {
     this.setRating = async function (rating) {
         browser.wait(EC.visibilityOf(ratingFilter), 10000)
         this.getFilterElementByRating('rating', rating).click()
+        logger.info("WAIT FOR RESULTS LOADING/////")
         this.waitForResultsLoading()
     }
 
@@ -61,15 +73,19 @@ let homePage = function () {
         return element.all(by.xpath('//tr[@ng-repeat="restaurant in restaurants"]')).count()
     }
 
-    this.getRatingValue = function (i) {
-        let list = element.all(by.xpath(`//table//tr[${i + 2}]//fm-rating[@ng-model="$parent.restaurant.rating"]//*[contains(@class,"fm-selected")]`))
-        return list.count()
+    this.getRatingValueForRestaurantInList = async function (restaurantIndex) {
+        return (await this.getRatingElement('rating', restaurantIndex)).count()
     }
 
-    this.getPriceValue = function (i) {
-        let list = element.all(by.xpath(`//table//tr[${i + 2}]//fm-rating[@ng-model="$parent.restaurant.price"]//*[contains(@class,"fm-selected")]`))
-        return list.count()
+    this.getPriceValueForRestaurantInList = async function (restaurantIndex) {
+        return (await this.getRatingElement('price', restaurantIndex)).count()
     }
+
+    this.getRatingElement = function (ratingFilterName, restaurantIndex) {
+        return element.all(by.xpath('//table//tr[${restaurantIndex + 2}]' +
+            `//fm-rating[@ng-model="$parent.restaurant.${ratingFilterName}"]//*[contains(@class,"fm-selected")]`))
+    }
+
 
     this.clearRating = function () {
         browser.wait(EC.visibilityOf(clearRatingButton), 10000, 'Clear link for Price filter is not visible')
@@ -85,10 +101,9 @@ let homePage = function () {
         element(by.xpath(`//ng-view/div/div[1]/form/div/label/input[@value = '${type}']`)).click()
     }
 
-    this.getListOfRestaurants = function (type) {
-        return restaurantName
+    this.getListOfRestaurantNames = function () {
+        return listOfRestaurantNames
     }
-
 
     this.waitForResultsLoading = function () {
         browser.wait(EC.visibilityOf(controlMessage), 10000)
@@ -101,7 +116,6 @@ let homePage = function () {
     this.moveMouseToFilter = function () {
         browser.actions().mouseMove(ratingFilter).perform()
     }
-
 }
 
-   module.exports = new homePage()
+module.exports = new homePage()

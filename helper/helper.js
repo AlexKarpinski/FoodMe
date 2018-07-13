@@ -1,4 +1,3 @@
-
 let helper = function () {
 
 
@@ -42,8 +41,8 @@ let helper = function () {
         return value
     }
 
-    this.getRandomInt = (max, min) => {
-        return  Math.floor(Math.random() * max + min)
+    this.getRandomInt = (min, max) => {
+        return Math.floor(Math.random() * max + min)
 
     }
 

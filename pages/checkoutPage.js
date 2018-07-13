@@ -14,6 +14,10 @@ let checkoutPage = function () {
     const MIN_CARD_EXPIRATION_DATE = new Date()
     const MAX_CARD_EXPIRATION_DATE = new Date (2025, 0, 1)
 
+    this.reload = function () {
+        browser.refresh()
+    }
+
     this.clickCheckoutButton = function () {
         checkoutButton.click()
     }

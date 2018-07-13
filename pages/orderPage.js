@@ -1,5 +1,6 @@
 let homePage = require('../pages/homePage.js')
 let helper = require('../helper/helper.js');
+let ratingData = require('../testing-data/ratingData.module.js');
 
 let orderPage = function () {
     let countOfDishes
@@ -15,6 +16,11 @@ let orderPage = function () {
         this.getRestaurantByIndex(restaurantIndex).click()
         logger.info(`THEN Order menu is presented`)
         browser.wait(EC.visibilityOf(menu), 10000, 'Menu is not visible')
+    }
+
+    this.openOrderPageForRandomRestaurant = async function (restaurantIndex) {
+        let randomRestaurantIndex = helper.getRandomInt(0, ratingData.totalNumberOfResults)
+        await this.openOrderForRestaurantByIndex(randomRestaurantIndex);
     }
 
     this.getRestaurantByIndex = function (restaurantIndex) {
@@ -54,8 +60,6 @@ let orderPage = function () {
         let el = element.all(by.xpath('//div[contains(@class,"fm-cart")]//li'))
         browser.wait(EC.presenceOf(el), 10000, 'order is not visible')
         let count = await el.count()
-        logger.info("number of order positions " + count)
-
         let isDishAddedToOrder = false
         for (let i = 0; i < count; i++) {
             logger.info("ELEMENT TEXT: " + await element.all(by.xpath(`//ng-view/div[2]/div[2]/form/ul/li[${i + 1}]`)).getText())
@@ -141,12 +145,7 @@ let orderPage = function () {
         return await (await totalSum.getText()).substring(8)
     }
 
-    //        await orderPage.addRandomDishesToOrder(await orderPage.generateDishesData());
-    //await checkoutPage.clickCheckoutButton();
-
     this.checkoutOrder = async function () {
-        /*   browser.wait(EC.visibilityOf(`//*[contains(text(),"Total: $${expectedTotalSum}")]`), 10000,
-               `Actual value of sum ${await expectedTotalSum.getText()}`)*/
         checkoutButton.click()
     }
 
@@ -155,9 +154,6 @@ let orderPage = function () {
         let dishesData = this.generateDishesData()
         await this.addRandomDishesToOrder(await dishesData)
         let expectedTotalSum = await this.calculateOrderSum(await dishesData)
-        logger.info("THEN total sum is correct: " + await expectedTotalSum)
-       /* browser.wait(await this.isTotalSumCorrect(expectedTotalSum), 10000,
-            `Actual value of sum is not correct`)*/
     }
 
 }

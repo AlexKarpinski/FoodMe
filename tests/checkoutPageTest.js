@@ -10,18 +10,16 @@ describe('Checkout Page:', function () {
 
     beforeAll(async function () {
         logger.info("TEST PREPARATION");
-
         let randomRestaurantIndex = helper.getRandomInt(0, ratingData.totalNumberOfResults)
         orderPage.openOrderForRestaurantByIndex(randomRestaurantIndex);
 
         await orderPage.createOrder()
-
         await orderPage.checkoutOrder();
         await logger.info("PREPARATION COMPLETED");
     });
 
     afterEach(async function () {
-        await browser.refresh()
+        checkoutPage.reload()
     });
 
     describe('Positive: User may pay the order with credit card: ', function () {
@@ -37,7 +35,7 @@ describe('Checkout Page:', function () {
                 checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber())
 
                 logger.info(`AND  set the valid expire date`)
-                checkoutPage.setExpireDate( checkoutPage.generateValidExpireDate())
+                checkoutPage.setExpireDate(checkoutPage.generateValidExpireDate())
 
                 logger.info(`AND  set the valid CVC `)
                 checkoutPage.setCvc(checkoutPage.generateValidCvc())
@@ -121,32 +119,32 @@ describe('Checkout Page:', function () {
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false)
                 })
                 it('Expire Date is empty', async function () {
-                     logger.info(`WHEN user select the type ${description} `)
-                     await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(checkoutData.cardTypes.length)].type)
+                    logger.info(`WHEN user select the type ${description} `)
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(checkoutData.cardTypes.length)].type)
 
-                     logger.info(`AND  set the invalid card number`)
-                     await checkoutPage.setCardNumber('65406504')
+                    logger.info(`AND  set the invalid card number`)
+                    await checkoutPage.setCardNumber('65406504')
 
-                     logger.info(`AND  does not set the expire date`)
-                     logger.info(`AND  set the valid CVC `)
-                     checkoutPage.setCvc(await checkoutPage.generateValidCvc())
+                    logger.info(`AND  does not set the expire date`)
+                    logger.info(`AND  set the valid CVC `)
+                    checkoutPage.setCvc(await checkoutPage.generateValidCvc())
 
-                     logger.info(`THEN purchase button is enabled `)
-                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false)
+                    logger.info(`THEN purchase button is enabled `)
+                    expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false)
                 })
                 it('CVC is empty', async function () {
-                     logger.info(`WHEN user select the type ${description} `)
-                     await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(checkoutData.cardTypes.size)].type)
+                    logger.info(`WHEN user select the type ${description} `)
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(checkoutData.cardTypes.size)].type)
 
-                     logger.info(`AND  set the invalid card number`)
-                     await checkoutPage.setCardNumber('65406504')
+                    logger.info(`AND  set the invalid card number`)
+                    await checkoutPage.setCardNumber('65406504')
 
-                     logger.info(`AND  set the valid expire date`)
-                     checkoutPage.setExpireDate(await checkoutPage.generateValidExpireDate())
+                    logger.info(`AND  set the valid expire date`)
+                    checkoutPage.setExpireDate(await checkoutPage.generateValidExpireDate())
 
-                     logger.info(`AND  does not set the CVC `)
-                     logger.info(`THEN purchase button is enabled `)
-                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false)
+                    logger.info(`AND  does not set the CVC `)
+                    logger.info(`THEN purchase button is enabled `)
+                    expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false)
                 })
             })
         })

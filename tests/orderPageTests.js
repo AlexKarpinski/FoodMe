@@ -1,7 +1,7 @@
 let orderPage = require('../pages/orderPage.js')
 let ratingData = require('../testing-data/ratingData.module.js')
 
-xdescribe('Order:: ', function () {
+describe('Order:: ', function () {
 
     beforeAll(function () {
         logger.info("TEST PREPARATION")

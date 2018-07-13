@@ -4,7 +4,7 @@ let homePage = require('../pages/homePage.js')
 let using = require('jasmine-data-provider')
 let fs = require('fs')
 
-describe('Filtering: ', function () {
+xdescribe('Filtering: ', function () {
 
     beforeAll(function () {
         homePage.openHomePage()

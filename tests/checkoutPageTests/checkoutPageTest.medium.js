@@ -130,10 +130,8 @@ describe('Checkout Page:', function () {
             using(checkoutData.invalidCardNumbers, function (card, description) {
                 it('Card Number is highlighted in negative color is invalid value was entered', function () {
                     logger.info(`WHEN user select the  type `);
-                    checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
                     logger.info(`AND  set the ${card.description}`);
                     checkoutPage.setCardNumber(card.symbolSet);
-                    checkoutPage.setExpireDate(checkoutPage.generateValidExpireDate());
                     browser.wait(checkoutPage.isCardNumberHighlightedInNegativeColor, 10000, 'border color is not visible');
                     expect(checkoutPage.isCardNumberHighlightedInNegativeColor()).toBe(true)
                 })
@@ -141,10 +139,8 @@ describe('Checkout Page:', function () {
             using(checkoutData.invalidExpireDate, function (date, description) {
                 it('Expire date is highlighted in negative color is invalid value was entered', function () {
                     logger.info(`WHEN user select the type `);
-                    checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
                     logger.info(`AND  set the ${date.description}`);
                     checkoutPage.setExpireDate(date.symbolSet);
-                    checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
                     browser.wait(checkoutPage.isExpireDateHighlightedInNegativeColor, 10000, 'bborder color is not visible');
                     expect(checkoutPage.isExpireDateHighlightedInNegativeColor()).toBe(true)
                 })
@@ -152,10 +148,8 @@ describe('Checkout Page:', function () {
             using(checkoutData.invalidCvc, function (cvc, description) {
                 it('Expire date is highlighted in negative color is invalid value was entered', function () {
                     logger.info(`WHEN user select the type `);
-                    checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
                     logger.info(`AND  set the ${cvc.description}`);
                     checkoutPage.setCvc(cvc.symbolSet);
-                    checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
                     browser.wait(checkoutPage.isCvcHighlightedInNegativeColor, 10000, 'border color is not visible');
                     expect(checkoutPage.isCvcHighlightedInNegativeColor()).toBe(true)
                 })

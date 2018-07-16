@@ -24,6 +24,7 @@ let checkoutPage = function () {
 
     this.setCardNumber = async function (cardNumberValue) {
         await cardNumberField.sendKeys(cardNumberValue)
+        expireDateField.sendKeys(protractor.Key.TAB);
     };
 
     this.generateValidExpireDate = () => {
@@ -34,6 +35,7 @@ let checkoutPage = function () {
 
     this.setExpireDate = function (expireDate) {
         expireDateField.sendKeys(expireDate)
+        expireDateField.click();
     };
 
     this.generateValidCvc = function () {
@@ -42,6 +44,7 @@ let checkoutPage = function () {
 
     this.setCvc = function (cvcValue) {
         cvcField.sendKeys(cvcValue)
+        expireDateField.click();
     };
 
     this.selectCardType = async function (cardType) {

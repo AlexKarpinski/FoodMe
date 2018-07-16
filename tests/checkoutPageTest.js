@@ -110,7 +110,7 @@ describe('Checkout Page:', function () {
             describe('Required field is empty: ', function () {
                 it('Card Number is empty', async function () {
                     logger.info(`WHEN user select the type `);
-                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.count)].type);
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
 
                     logger.info(`AND  does not set the card number`);
                     logger.info(`AND  set the valid expire date`);
@@ -124,7 +124,7 @@ describe('Checkout Page:', function () {
                 });
                 it('Expire Date is empty', async function () {
                     logger.info(`WHEN user select the type `);
-                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.count)].type);
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
 
                     logger.info(`AND  set the valid card number`);
                     await checkoutPage.setCardNumber(await checkoutPage.generateValidCardNumber());
@@ -138,7 +138,7 @@ describe('Checkout Page:', function () {
                 });
                 it('CVC is empty', async function () {
                     logger.info(`WHEN user select the type `);
-                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.count)].type);
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
 
                     logger.info(`AND  set the invalid card number`);
                     await checkoutPage.setCardNumber(await checkoutPage.generateValidCardNumber());

@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "allure-commandline": "^2.5.0",
-    "jasmine-data-provider": "^2.2.0"
+    "jasmine-data-provider": "^2.2.0",
+    "tinycolor2": "^1.4.1"
   }
 }

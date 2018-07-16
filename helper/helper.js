@@ -45,8 +45,15 @@ let helper = function () {
         return Math.floor(Math.random() * max + min)
 
     }
-
-
-}
+    this.rgb2hex = (rgb) => {
+        rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
+        return new String("#" + this.hex(rgb[1]) + this.hex(rgb[2]) + this.hex(rgb[3])).toUpperCase()
+    }
+    this.hex = (x) => {
+        let hexDigits = new Array
+        ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
+        return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+    }
+   }
 
 module.exports = new helper()

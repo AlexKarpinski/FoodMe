@@ -64,13 +64,13 @@ describe('Home Page: ', function () {
 
         it('Clear the price', async function () {
 
-            logger.info("WHEN User sets the rating")
-            homePage.setPrice(helper.getRandomInt(1, 5))
+            logger.info("WHEN User sets the rating");
+            homePage.setPrice(helper.getRandomInt(1, 5));
 
-            logger.info(`AND clicks the Clear button`)
-            homePage.clearPrice()
+            logger.info(`AND clicks the Clear button`);
+            homePage.clearPrice();
 
-            logger.info(`THEN actual number of all restaurants`)
+            logger.info(`THEN actual number of all restaurants`);
             expect(homePage.getNumberOfRestaurants()).toEqual(ratingData.totalNumberOfResults, "Count of restaurants after the price clearing is incorrect")
 
         })

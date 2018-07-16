@@ -3,9 +3,8 @@ let helper = require('../helper/helper.js');
 let ratingData = require('../testing-data/ratingData.module.js');
 
 let orderPage = function () {
-    let countOfDishes;
+
     let listOfDishes = element.all(by.xpath('//ng-view/div[2]/div[1]/ul/li[@ng-repeat = "menuItem in restaurant.menuItems"]'));
-    let listOfOrderedDishes = element.all(by.xpath('//ng-view/div[2]/div[2]/form/ul/li[@ng-repeat = "item in cart.items"]'));
     let menu = element(by.xpath('//ng-view/div[2]/div[1]/ul/li[1]/a'));
     let totalSum = element(by.xpath('//ng-view/div[2]/div[2]/form/p/b'));
     let checkoutButton = element(by.xpath("//div[@ng-show = 'cart.items.length']"));
@@ -18,35 +17,16 @@ let orderPage = function () {
         browser.wait(EC.visibilityOf(menu), 10000, 'Menu is not visible')
     };
 
-    this.openOrderPageForRandomRestaurant = async function (restaurantIndex) {
-        let randomRestaurantIndex = helper.getRandomInt(0, ratingData.totalNumberOfResults);
-        await this.openOrderForRestaurantByIndex(randomRestaurantIndex);
-    };
-
     this.getRestaurantByIndex = function (restaurantIndex) {
         return element(by.xpath(`//ng-view/div/div[2]/table/tbody/tr[${restaurantIndex + 2}]/td[1]/a/b`))
     };
 
     this.getTotalCountOfDishes = async function () {
-        let totalCount = await listOfDishes.count();
-        return totalCount
-    };
-
-    this.getNumberOfOrderedDishes = function () {
-        return listOfOrderedDishes.count()
-    };
-
-    this.deleteDishesFromList = function () {
-        element(by.xpath('//ng-view/div[2]/div[2]/form/ul/li[1]/a')).click()
+        return await listOfDishes.count()
     };
 
     this.reload = function () {
         browser.refresh()
-    };
-
-    this.getPrice = function (count) {
-        element(by.xpath(`//ng-view/div[2]/div[1]/ul/li[${position + 1}]`)).click();
-        return element(by.xpath(`//ng-view/div[2]/div[1]/ul/li[${position + 1}]/a/span[2]`)).getText()
     };
 
     this.chooseDishByIndex = async function (index, numberTimesToAdd) {
@@ -64,7 +44,7 @@ let orderPage = function () {
         for (let i = 0; i < count; i++) {
             logger.info("ELEMENT TEXT: " + await element.all(by.xpath(`//ng-view/div[2]/div[2]/form/ul/li[${i + 1}]`)).getText());
             let text = await element.all(by.xpath(`//ng-view/div[2]/div[2]/form/ul/li[${i + 1}]`)).getText();
-            if (text.includes(`${numberOfTimesToAdd} × ${this.getDishNameByIndex(index)}`) == true) {
+            if (text.includes(`${numberOfTimesToAdd} × ${this.getDishNameByIndex(index)}`) === true) {
                 return isDishAddedToOrder
             }
         }
@@ -117,7 +97,7 @@ let orderPage = function () {
         let dishesAddedToOrder = new Map();
         for (let i = 0; i < countOfPositionsToAdd; i++) {
             let indexOfDish = helper.getRandomInt(0, totalCountOfDishes);
-            if (dishesAddedToOrder.has(indexOfDish) == false) {
+            if (dishesAddedToOrder.has(indexOfDish) === false) {
                 let numberOfTimesToAdd = helper.getRandomInt(1, MAX_NUMBER_OF_PORTIONS);
                 dishesAddedToOrder.set(indexOfDish, numberOfTimesToAdd)
             } else {
@@ -146,7 +126,6 @@ let orderPage = function () {
         logger.info("WHEN User user adds dishes into the order");
         let dishesData = this.generateDishesData();
         await this.addRandomDishesToOrder(await dishesData);
-        let expectedTotalSum = await this.calculateOrderSum(await dishesData)
     }
 
 };

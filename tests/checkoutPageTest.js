@@ -10,7 +10,6 @@ let helper = require('../helper/helper.js');
 
 describe('Checkout Page:', function () {
 
-    const NEGATIVE_COLOR = 'rgb(233, 50, 45)';
     beforeAll(async function () {
         logger.info("TEST PREPARATION");
         let randomRestaurantIndex = helper.getRandomInt(0, ratingData.totalNumberOfResults);
@@ -34,10 +33,10 @@ describe('Checkout Page:', function () {
                 logger.info("CARD TYPE: " + data.type);
 
                 logger.info(`WHEN user selects the type ${data.description} `);
-                checkoutPage.selectCardType(data.type);
+                await checkoutPage.selectCardType(data.type);
 
                 logger.info(`AND  set the valid card number`);
-                checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
+                await checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
 
                 logger.info(`AND  set the valid expire date`);
                 checkoutPage.setExpireDate(checkoutPage.generateValidExpireDate());
@@ -46,10 +45,10 @@ describe('Checkout Page:', function () {
                 checkoutPage.setCvc(checkoutPage.generateValidCvc());
 
                 logger.info(`THEN purchase button is enabled `);
-                expect(checkoutPage.isPurchaseButtonEnabled()).toBe(true, "Purchase button is disabled")
+                expect(checkoutPage.isPurchaseButtonEnabled()).toBe(true, "Purchase button is disabled");
 
-                checkoutPage.clickPurchaseButton()
-                expect(confirmPage.getFinalMessage()).toBe("Thank you for your order!", "Purchase button is disabled")
+                checkoutPage.clickPurchaseButton();
+                expect(confirmPage.getFinalMessage()).toBe("Thank you for your order!", "Purchase button is disabled");
                 let randomRestaurantIndex = helper.getRandomInt(0, ratingData.totalNumberOfResults);
                 orderPage.openOrderForRestaurantByIndex(randomRestaurantIndex);
 
@@ -78,41 +77,40 @@ describe('Checkout Page:', function () {
                 });
                 xit('Expire Date contains invalid value', async function () {
                     logger.info(`WHEN user select the type `);
-                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(checkoutData.cardTypes.length)].type);
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
 
                     logger.info(`AND  set the valid card number`);
-                    checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
+                    await checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
 
                     logger.info(`AND  set the invalid expire date`);
-                    checkoutPage.setExpireDate(checkoutData.invalidExpireDate[helper.getRandomInt(0, checkoutData.invalidExpireDate.length)].symbolSet);
-
+                    await checkoutPage.setExpireDate(checkoutData.invalidExpireDate[helper.getRandomInt(0, checkoutData.invalidExpireDate.length)].symbolSet);
                     logger.info(`AND  set the valid CVC `);
-                    checkoutPage.setCvc(await checkoutPage.generateValidCvc());
+                    await checkoutPage.setCvc(await checkoutPage.generateValidCvc());
 
                     logger.info(`THEN purchase button is enabled `);
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false, "Purchase button is enabled")
                 });
                 xit('CVC contains invalid value', async function () {
-                    logger.info(`WHEN user select the type ${description} `);
-                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(checkoutData.cardTypes.length)].type);
+                    logger.info(`WHEN user select the type  `);
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
 
                     logger.info(`AND  set the valid card number`);
-                    checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
+                    await checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
 
                     logger.info(`AND  set the valid expire date`);
-                    checkoutPage.setExpireDate(await checkoutPage.generateValidExpireDate());
+                    await checkoutPage.setExpireDate(await checkoutPage.generateValidExpireDate());
 
                     logger.info(`AND  set the invalid CVC `);
-                    checkoutPage.setCvc(checkoutData.invalidCvc[helper.getRandomInt(0, checkoutData.invalidCvc.length)].symbolSet);
+                    await checkoutPage.setCvc(checkoutData.invalidCvc[helper.getRandomInt(0, checkoutData.invalidCvc.length)].symbolSet);
 
                     logger.info(`THEN purchase button is enabled `);
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false)
                 })
             });
-            xdescribe('Required field is empty: ', function () {
+            describe('Required field is empty: ', function () {
                 it('Card Number is empty', async function () {
                     logger.info(`WHEN user select the type `);
-                    await  checkoutPage.selectCardType(checkoutData.cardTypes[0, helper.getRandomInt(checkoutData.cardTypes.count)].type);
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.count)].type);
 
                     logger.info(`AND  does not set the card number`);
                     logger.info(`AND  set the valid expire date`);
@@ -152,10 +150,10 @@ describe('Checkout Page:', function () {
                     logger.info(`THEN purchase button is enabled `);
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false, "Purchase button is enabled")
                 })
-            })
+            });
             describe('All fields are not filled', function () {
                 it('All fields are not filled', function () {
-                    logger.info(`WHEN user does not select the type of card and does not filled the fields `)
+                    logger.info(`WHEN user does not select the type of card and does not filled the fields `);
                     logger.info(`THEN purchase button is disabled `);
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false, "Purchase button is enabled")
                 })
@@ -163,20 +161,38 @@ describe('Checkout Page:', function () {
         });
         describe('Card Number is highlighted in negative color is invalid value was entered', function () {
             using(checkoutData.invalidCardNumbers, function (card, description) {
-                it('Card Number is highlighted in negative color is invalid value was entered', async function () {
+                it('Card Number is highlighted in negative color is invalid value was entered', function () {
+                    logger.info(`WHEN user select the  type `);
+                    checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
+                    logger.info(`AND  set the ${card.description}`);
+                    checkoutPage.setCardNumber(card.symbolSet);
+                    checkoutPage.setExpireDate(checkoutPage.generateValidExpireDate());
+                    browser.wait(checkoutPage.isCardNumberHighlightedInNegativeColor, 10000, 'order is not visible');
+                    expect(checkoutPage.isCardNumberHighlightedInNegativeColor()).toBe(true)
+                })
+            });
+            using(checkoutData.invalidExpireDate, function (date, description) {
+                xit('Expire date is highlighted in negative color is invalid value was entered', function () {
                     logger.info(`WHEN user select the type `);
-
-                    logger.info(`AND  set the ${await card.description}`);
-                    await checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
-                    await checkoutPage.setCardNumber(await card.symbolSet);
-
-                    checkoutPage.setExpireDate(await checkoutPage.generateValidExpireDate());
-                    browser.wait(checkoutPage.waitForEqual(), 10000, 'order is not visible');
-                    expect(await checkoutPage.getCardNumberInputBorderColor()).toBe(NEGATIVE_COLOR)
-
+                    checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
+                    logger.info(`AND  set the ${date.description}`);
+                    checkoutPage.setExpireDate(date.symbolSet);
+                    checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
+                    browser.wait(checkoutPage.isExpireDateHighlightedInNegativeColor, 10000, 'border color is not visible');
+                    expect(checkoutPage.isExpireDateHighlightedInNegativeColor()).toBe(true)
+                })
+            });
+            using(checkoutData.invalidCvc, function (cvc, description) {
+                it('Expire date is highlighted in negative color is invalid value was entered', function () {
+                    logger.info(`WHEN user select the type `);
+                    checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
+                    logger.info(`AND  set the ${cvc.description}`);
+                    checkoutPage.setCvc(cvc.symbolSet);
+                    checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
+                    browser.wait(checkoutPage.isCvcHighlightedInNegativeColor, 10000, 'border color is not visible');
+                    expect(checkoutPage.isCvcHighlightedInNegativeColor()).toBe(true)
                 })
             })
         })
     })
-})
-
+});

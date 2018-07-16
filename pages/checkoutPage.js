@@ -1,11 +1,10 @@
 let homePage = require('../pages/homePage.js');
 let orderPage = require('../pages/orderPage.js');
 let helper = require('../helper/helper.js');
-var dateFormat = require('dateformat');
+let dateFormat = require('dateformat');
 let checkoutPage = function () {
 
-    const NEGATIVE_COLOR = '#E9322D'
-    let checkoutButton = element(by.xpath("//div[@ng-show = 'cart.items.length']"));
+    const NEGATIVE_COLOR = 'rgb(233, 50, 45)';
     let inputCardTypeField = element(by.xpath("//select[@name = 'ccType']"));
     let cardNumberField = element(by.xpath("//input[@name = 'ccNum']"));
     let expireDateField = element(by.xpath("//input[@name = 'ccExp']"));
@@ -19,9 +18,6 @@ let checkoutPage = function () {
         browser.refresh()
     };
 
-    this.clickCheckoutButton = function () {
-        checkoutButton.click()
-    };
     this.generateValidCardNumber = async function () {
         return helper.getRandomNumeric(16)
     };
@@ -42,9 +38,8 @@ let checkoutPage = function () {
 
     this.generateValidCvc = function () {
         return helper.getRandomNumeric(3);
-        cvcField.sendKeys(cvcValue)
-
     };
+
     this.setCvc = function (cvcValue) {
         cvcField.sendKeys(cvcValue)
     };
@@ -57,51 +52,21 @@ let checkoutPage = function () {
     this.isPurchaseButtonEnabled = async function () {
         return purchaseButton.isEnabled()
     };
-
-    this.getCardNumberInputBorderColor = async function () {
-        //let color = cardNumberField.getCssValue('border-color')
-        return await cardNumberField.getCssValue('border-color')
-    }
-
     this.clickPurchaseButton = async function () {
         await  purchaseButton.click()
     };
 
-
-    this.checkColor = async function () {
-        let color = cardNumberField.getCssValue('border-color')
-        let isEqual = (await cardNumberField.getCssValue('border-color') == 'rgb(233, 50, 45)')
-        logger.info("Color==============" + isEqual)
-        /* if ((await color).toString() === 'rgb(233, 50, 45)') {
-             return true
-         }*/
-        return false
-
+    this.isCardNumberHighlightedInNegativeColor = async function () {
+        return await (await cardNumberField.getCssValue('border-color') === NEGATIVE_COLOR);
     };
 
-
-    /*this.isBorderColorEqualTo = async function (expectedColor) {
-       // let isEqual = false
-        let color = await cardNumberField.getCssValue('border-color')
-        console.log("is borderColorEqual:====" + await color)
-        let isEqual = ((await color) == expectedColor)
-        console.log("isTrue or false: " +  isEqual)
-        return await isEqual
-    };*/
-
-
-    this.isEqual = async function () {
-        let isEqual = false
-        let color = cardNumberField.getCssValue('border-color')
-        isEqual = (await cardNumberField.getCssValue('border-color') == 'rgb(233, 50, 45)')
-        logger.info("compare========" + await isEqual)
-        return await isEqual
+    this.isExpireDateHighlightedInNegativeColor = async function () {
+        return await (await expireDateField.getCssValue('border-color') === NEGATIVE_COLOR);
     };
 
-    this.waitForEqual = async function () {
-        browser.wait(this.isEqual, 10000, 'order is not visible')
+    this.isCvcHighlightedInNegativeColor = async function () {
+        return await (await cvcField.getCssValue('border-color') === NEGATIVE_COLOR);
     };
-
 };
 
 module.exports = new checkoutPage();

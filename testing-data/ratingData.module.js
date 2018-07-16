@@ -44,4 +44,4 @@ module.exports = {
         {type: "thai", restaurants: ["Satay Village", "Hit Me Baby One More Thai"]},
         {type: "vegetarian", restaurants: ["BBQ Tofu Paradise"]}
     ]
-}
+};

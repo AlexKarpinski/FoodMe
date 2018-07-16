@@ -1,17 +1,10 @@
 'use strict';
-let helper = require('../helper/helper.js')
+let helper = require('../helper/helper.js');
 module.exports = {
 
     cardTypes: [
         {type: 'visa'}, {type: 'mc'}, {type: 'amex'}, {type: 'discover'}],
 
-    /* cardTypes: {
-         'Visa card': {type: 'visa'},
-         'MasterCard': {type: 'mc'},
-         'Amex card': {type: 'amex'},
-         'Discover card': {type: 'discover'},
-     },
- */
     invalidCardNumbers: [
         {
             description: 'Invalid card number length (between 1 and 16)',
@@ -79,6 +72,5 @@ module.exports = {
             description: 'Invalid card number value (3 random Chinese Characters',
             symbolSet: helper.getRandomChineseCharacters(3)
         }
-    ],
-
-}
+    ]
+};

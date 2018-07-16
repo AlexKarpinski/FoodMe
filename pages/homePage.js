@@ -20,23 +20,12 @@ let homePage = function () {
     };
 
     this.submitCutomerData = async function (name, address) {
-        this.enterName(name);
-        this.enterAddress(address);
+        await this.enterName(name);
+        await this.enterAddress(address);
         await findButton.click()
     };
 
     this.openHomePage = function () {
-        logger.info(`GIVEN: User goes to the main page: ${browser.baseUrl}`);
-        browser.ignoreSynchronization = true;
-        browser.get(browser.baseUrl);
-        logger.info(`WHEN: User submit data in the customer form: ${browser.params.name}, ${browser.params.address}`);
-        browser.wait(EC.visibilityOf(element(by.id('customerName'))), 10000);
-        this.submitCutomerData(browser.params.name, browser.params.address);
-        logger.info(`THEN User is redirected to the homePage that contains ${ratingData.totalNumberOfResults}`);
-        this.waitForSpecificNumberOfResultsLoading(ratingData.totalNumberOfResults)
-    };
-
-    this.open = function () {
         logger.info(`GIVEN: User goes to the main page: ${browser.baseUrl}`);
         browser.ignoreSynchronization = true;
         browser.get(browser.baseUrl);

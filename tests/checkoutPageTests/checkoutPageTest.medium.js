@@ -134,7 +134,7 @@ describe('Checkout Page:', function () {
                     logger.info(`AND  set the ${card.description}`);
                     checkoutPage.setCardNumber(card.symbolSet);
                     checkoutPage.setExpireDate(checkoutPage.generateValidExpireDate());
-                    browser.wait(checkoutPage.isCardNumberHighlightedInNegativeColor, 10000, 'order is not visible');
+                    browser.wait(checkoutPage.isCardNumberHighlightedInNegativeColor, 10000, 'border color is not visible');
                     expect(checkoutPage.isCardNumberHighlightedInNegativeColor()).toBe(true)
                 })
             });
@@ -145,7 +145,7 @@ describe('Checkout Page:', function () {
                     logger.info(`AND  set the ${date.description}`);
                     checkoutPage.setExpireDate(date.symbolSet);
                     checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
-                    browser.wait(checkoutPage.isExpireDateHighlightedInNegativeColor, 10000, 'border color is not visible');
+                    browser.wait(checkoutPage.isExpireDateHighlightedInNegativeColor, 10000, 'bborder color is not visible');
                     expect(checkoutPage.isExpireDateHighlightedInNegativeColor()).toBe(true)
                 })
             });

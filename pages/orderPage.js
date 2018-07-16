@@ -126,7 +126,7 @@ let orderPage = function () {
         logger.info("WHEN User user adds dishes into the order");
         let dishesData = this.generateDishesData();
         await this.addRandomDishesToOrder(await dishesData);
-    }
+    };
 
 };
 

@@ -27,6 +27,12 @@ exports.config = {
         defaultTimeoutInterval: 30000
     },
 
+    suites: {
+        highPriority: ['tests/homePageTests/*high.js', 'tests/orderPageTests/*high.js', 'tests/checkoutPageTests/*high.js'],
+        mediumPriority: ['tests/homePageTests/*medium.js', 'tests/checkoutPageTests/*medium.js'],
+        all: ['tests/homePageTests/*.js', 'tests/orderPageTests/*.js', 'tests/checkoutPageTests/*.js'],
+    },
+
     onPrepare: function () {
         let AllureReporter = require('jasmine-allure-reporter');
         jasmine.getEnv().addReporter(new AllureReporter({
@@ -46,4 +52,5 @@ exports.config = {
         global.logger.level = 'info';
         global.EC = protractor.ExpectedConditions
     }
+
 };

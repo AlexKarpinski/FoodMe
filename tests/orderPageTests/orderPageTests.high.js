@@ -1,6 +1,6 @@
-let orderPage = require('../pages/orderPage.js');
-let ratingData = require('../testing-data/ratingData.module.js');
-let helper = require('../helper/helper.js');
+let orderPage = require('../../pages/orderPage.js');
+let ratingData = require('../../testing-data/ratingData.module.js');
+let helper = require('../../helper/helper.js');
 
 describe('Order Page: ', function () {
 

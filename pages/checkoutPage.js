@@ -52,9 +52,6 @@ let checkoutPage = function () {
     this.isPurchaseButtonEnabled = async function () {
         return purchaseButton.isEnabled()
     };
-    this.clickPurchaseButton = async function () {
-        await  purchaseButton.click()
-    };
 
     this.isCardNumberHighlightedInNegativeColor = async function () {
         return await (await cardNumberField.getCssValue('border-color') === NEGATIVE_COLOR);

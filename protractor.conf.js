@@ -4,7 +4,7 @@ exports.config = {
     allScriptsTimeout: 11000,
 
     specs: [
-        './tests/checkoutPageTest*.js'
+        './tests/*.js'
     ],
 
     capabilities: {
@@ -28,7 +28,7 @@ exports.config = {
     },
 
     onPrepare: function () {
-        var AllureReporter = require('jasmine-allure-reporter');
+        let AllureReporter = require('jasmine-allure-reporter');
         jasmine.getEnv().addReporter(new AllureReporter({
             resultsDir: 'allure-results'
         }));
@@ -41,9 +41,9 @@ exports.config = {
             })
         });
 
-        let log4js = require('log4js')
-        global.logger = require('log4js').getLogger()
-        global.logger.level = 'info'
+        let log4js = require('log4js');
+        global.logger = require('log4js').getLogger();
+        global.logger.level = 'info';
         global.EC = protractor.ExpectedConditions
     }
 };

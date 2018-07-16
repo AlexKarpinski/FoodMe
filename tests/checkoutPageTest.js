@@ -57,7 +57,7 @@ describe('Checkout Page:', function () {
     });
 
     describe('Negative: ', function () {
-        xdescribe('Negative: Payment button is disabled:', function () {
+        describe('Negative: Payment button is disabled:', function () {
             describe('All data is filled in but one field contains invalid value: ', function () {
                 it('Card Number contains invalid value', async function () {
                     logger.info(`WHEN user select the card type  `);
@@ -75,7 +75,7 @@ describe('Checkout Page:', function () {
                     logger.info(`THEN purchase button is disabled `);
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false, "Purchase button is enabled")
                 });
-                xit('Expire Date contains invalid value', async function () {
+                it('Expire Date contains invalid value', async function () {
                     logger.info(`WHEN user select the type `);
                     await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
 
@@ -90,7 +90,7 @@ describe('Checkout Page:', function () {
                     logger.info(`THEN purchase button is enabled `);
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false, "Purchase button is enabled")
                 });
-                xit('CVC contains invalid value', async function () {
+                it('CVC contains invalid value', async function () {
                     logger.info(`WHEN user select the type  `);
                     await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
 
@@ -172,7 +172,7 @@ describe('Checkout Page:', function () {
                 })
             });
             using(checkoutData.invalidExpireDate, function (date, description) {
-                xit('Expire date is highlighted in negative color is invalid value was entered', function () {
+                it('Expire date is highlighted in negative color is invalid value was entered', function () {
                     logger.info(`WHEN user select the type `);
                     checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
                     logger.info(`AND  set the ${date.description}`);

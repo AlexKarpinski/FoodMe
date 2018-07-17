@@ -10,7 +10,7 @@ let orderPage = function () {
     let checkoutButton = element(by.xpath("//div[@ng-show = 'cart.items.length']"));
 
     this.openOrderForRestaurantByIndex = function (restaurantIndex) {
-        homePage.openHomePage();
+        homePage.open();
         logger.info(`WHEN user chooses restaurant # ${restaurantIndex} at the home page`);
         this.getRestaurantByIndex(restaurantIndex).click();
         logger.info(`THEN Order menu is presented`);

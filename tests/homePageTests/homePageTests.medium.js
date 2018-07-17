@@ -6,7 +6,7 @@ let using = require('jasmine-data-provider');
 describe('Home Page: ', function () {
 
     beforeAll(function () {
-        homePage.openHomePage()
+        homePage.open()
     });
     afterEach(function () {
         homePage.reload()

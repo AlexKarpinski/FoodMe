@@ -22,7 +22,7 @@ describe('Checkout Page:', function () {
 
     describe('Positive: User may pay the order with credit card: ', function () {
         using(checkoutData.cardTypes, function (data, description) {
-            it("Type: " + data.description, async function () {
+            it(data.description, async function () {
 
                 logger.info("TEST PREPARATION");
                 let randomRestaurantIndex = helper.getRandomInt(0, ratingData.totalNumberOfResults);

@@ -12,7 +12,7 @@ describe('Checkout Page:', function () {
     let originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 
     beforeAll(async function () {
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 180000;
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 300000;
         logger.info("TEST PREPARATION");
     });
 

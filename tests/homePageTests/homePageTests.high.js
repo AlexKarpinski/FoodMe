@@ -4,12 +4,18 @@ let helper = require('../../helper/helper.js');
 let using = require('jasmine-data-provider');
 
 describe('Home Page: ', function () {
+    let originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 
     beforeAll(function () {
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 300000;
         homePage.open()
     });
     afterEach(function () {
         homePage.reload()
+    });
+
+    afterAll(async function () {
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
     });
 
     describe('Filter by rating: ', function () {

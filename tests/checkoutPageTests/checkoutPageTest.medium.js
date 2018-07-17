@@ -8,8 +8,10 @@ let helper = require('../../helper/helper.js');
 
 
 describe('Checkout Page:', function () {
+    let originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 
     beforeAll(async function () {
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 300000;
         logger.info("TEST PREPARATION");
         let randomRestaurantIndex = helper.getRandomInt(0, ratingData.totalNumberOfResults);
         orderPage.openOrderForRestaurantByIndex(randomRestaurantIndex);
@@ -21,6 +23,10 @@ describe('Checkout Page:', function () {
 
     afterEach(async function () {
         await checkoutPage.reload()
+    });
+
+    afterAll(async function () {
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
     });
 
     describe('Negative: ', function () {

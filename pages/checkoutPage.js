@@ -48,7 +48,7 @@ let checkoutPage = function () {
     this.setCvc = async function (cvcValue) {
         browser.wait(EC.visibilityOf(cvcField), 10000);
         await cvcField.sendKeys(cvcValue);
-        expireDateField.click();
+        await expireDateField.click();
     };
 
     this.selectCardType = async function (cardType) {

@@ -141,12 +141,12 @@ describe('Checkout Page:', function () {
                     logger.info(`WHEN user select the type `);
                     logger.info(`AND  set the ${date.description}`);
                     checkoutPage.setExpireDate(date.symbolSet);
-                    browser.wait(checkoutPage.isExpireDateHighlightedInNegativeColor, 10000, 'bborder color is not visible');
+                    browser.wait(checkoutPage.isExpireDateHighlightedInNegativeColor, 10000, 'border color is not visible');
                     expect(checkoutPage.isExpireDateHighlightedInNegativeColor()).toBe(true)
                 })
             });
             using(checkoutData.invalidCvc, function (cvc, description) {
-                it('Expire date is highlighted in negative color is invalid value was entered', function () {
+                it('Expire date is highlighted in negative color if invalid value was entered', function () {
                     logger.info(`WHEN user select the type `);
                     logger.info(`AND  set the ${cvc.description}`);
                     checkoutPage.setCvc(cvc.symbolSet);

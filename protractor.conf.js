@@ -31,6 +31,7 @@ exports.config = {
         highPriority: ['tests/homePageTests/*high.js', 'tests/orderPageTests/*high.js', 'tests/checkoutPageTests/*high.js'],
         mediumPriority: ['tests/homePageTests/*medium.js', 'tests/checkoutPageTests/*medium.js'],
         all: ['tests/homePageTests/*.js', 'tests/orderPageTests/*.js', 'tests/checkoutPageTests/*.js'],
+
     },
 
     onPrepare: function () {

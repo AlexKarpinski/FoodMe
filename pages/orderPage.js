@@ -128,6 +128,17 @@ let orderPage = function () {
         await this.addRandomDishesToOrder(await dishesData);
     };
 
+    this.cleanOrder = async function () {
+        let countOfPosition = await element.all(by.xpath('//*[@class="icon-remove-sign"]')).count();
+
+        if (countOfPosition > 0){
+            for (let i = 0; i < countOfPosition; i++){
+               await element(by.xpath('//a[@ng-click="cart.remove(item)"]')).click()
+            }
+        }
+    };
+
+
 };
 
 module.exports = new orderPage();

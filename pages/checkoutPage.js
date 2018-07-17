@@ -14,8 +14,9 @@ let checkoutPage = function () {
     const MIN_CARD_EXPIRATION_DATE = new Date();
     const MAX_CARD_EXPIRATION_DATE = new Date(2025, 0, 1);
 
-    this.reload = function () {
-        browser.refresh()
+    this.reload = async function () {
+        browser.wait(EC.visibilityOf(inputCardTypeField), 10000);
+        await browser.refresh()
     };
 
     this.generateValidCardNumber = async function () {
@@ -23,8 +24,9 @@ let checkoutPage = function () {
     };
 
     this.setCardNumber = async function (cardNumberValue) {
-        await cardNumberField.sendKeys(cardNumberValue)
-        expireDateField.sendKeys(protractor.Key.TAB);
+        browser.wait(EC.visibilityOf(cardNumberField), 10000);
+        await cardNumberField.sendKeys(cardNumberValue);
+        expireDateField.click();
     };
 
     this.generateValidExpireDate = () => {
@@ -33,17 +35,19 @@ let checkoutPage = function () {
         return dateFormat(expireDate, "mm/yyyy");
     };
 
-    this.setExpireDate = function (expireDate) {
-        expireDateField.sendKeys(expireDate)
-        expireDateField.click();
+    this.setExpireDate = async function (expireDate) {
+        browser.wait(EC.visibilityOf(expireDateField), 10000);
+        await expireDateField.sendKeys(expireDate);
+        cvcField.click();
     };
 
     this.generateValidCvc = function () {
         return helper.getRandomNumeric(3);
     };
 
-    this.setCvc = function (cvcValue) {
-        cvcField.sendKeys(cvcValue)
+    this.setCvc = async function (cvcValue) {
+        browser.wait(EC.visibilityOf(cvcField), 10000);
+        await cvcField.sendKeys(cvcValue);
         expireDateField.click();
     };
 
@@ -66,6 +70,10 @@ let checkoutPage = function () {
 
     this.isCvcHighlightedInNegativeColor = async function () {
         return await (await cvcField.getCssValue('border-color') === NEGATIVE_COLOR);
+    };
+
+    this.purchaseButtonClick = async function () {
+        await purchaseButton.click()
     };
 };
 

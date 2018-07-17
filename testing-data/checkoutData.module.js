@@ -3,7 +3,22 @@ let helper = require('../helper/helper.js');
 module.exports = {
 
     cardTypes: [
-        {type: 'visa'}, {type: 'mc'}, {type: 'amex'}, {type: 'discover'}],
+        {
+            description: "Visa",
+            type: 'visa'
+        },
+        {
+            description: "MasterCard",
+            type: 'mc'
+        },
+        {
+            description: "AmericanExpress",
+            type: 'amex'
+        },
+        {
+            description: "Discover",
+            type: 'discover'
+        }],
 
     invalidCardNumbers: [
         {

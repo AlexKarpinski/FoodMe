@@ -3,8 +3,10 @@ let ratingData = require('../../testing-data/ratingData.module.js');
 let helper = require('../../helper/helper.js');
 
 describe('Order Page: ', function () {
+    let originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 
     beforeAll(function () {
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 300000;
         logger.info("TEST PREPARATION");
         let randomRestaurantIndex = helper.getRandomInt(0, ratingData.totalNumberOfResults);
         orderPage.openOrderForRestaurantByIndex(randomRestaurantIndex);
@@ -12,6 +14,10 @@ describe('Order Page: ', function () {
     });
     afterEach(function () {
         orderPage.reload()
+    });
+
+    afterAll(async function () {
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
     });
 
     it('Create order with random dishes and click checkout', async function () {

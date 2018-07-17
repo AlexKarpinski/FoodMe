@@ -25,7 +25,7 @@ let homePage = function () {
         await findButton.click()
     };
 
-    this.openHomePage = function () {
+    this.open = function () {
         logger.info(`GIVEN: User goes to the main page: ${browser.baseUrl}`);
         browser.ignoreSynchronization = true;
         browser.get(browser.baseUrl);

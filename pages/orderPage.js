@@ -52,20 +52,20 @@ let orderPage = function () {
     };
 
 
-    this.getDishNameByIndex = function (index) {
-        return this.getDishNameElementInMenuByIndex(index).getText()
+    this.getDishNameByIndex = async function (index) {
+        return await this.getDishNameElementInMenuByIndex(index).getText()
     };
 
-    this.getDishPriceByIndex = function (index) {
-        return this.getDishPriceElementFromByIndex(index).getText()
+    this.getDishPriceByIndex = async function (index) {
+        return await this.getDishPriceElementFromByIndex(index).getText()
     };
 
-    this.getDishNameElementInMenuByIndex = async function (index) {
-        return await element(by.xpath(`//ng-view/div[2]/div[1]/ul/li[${index + 1}]/a/span[1]`))
+    this.getDishNameElementInMenuByIndex =  function (index) {
+        return element(by.xpath(`//ng-view/div[2]/div[1]/ul/li[${index + 1}]/a/span[1]`))
     };
 
-    this.getDishPriceElementFromByIndex = async function (index) {
-        return await element(by.xpath(`//ng-view/div[2]/div[1]/ul/li[${index + 1}]/a/span[2]`))
+    this.getDishPriceElementFromByIndex = function (index) {
+        return element(by.xpath(`//ng-view/div[2]/div[1]/ul/li[${index + 1}]/a/span[2]`))
     };
 
     this.calculateOrderSum = async function (dishesAddedToOrder) {

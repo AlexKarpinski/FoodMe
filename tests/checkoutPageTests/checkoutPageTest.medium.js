@@ -20,7 +20,7 @@ describe('Checkout Page:', function () {
     });
 
     afterEach(async function () {
-        checkoutPage.reload()
+        await checkoutPage.reload()
     });
 
     describe('Negative: ', function () {

@@ -42,10 +42,10 @@ describe('Checkout Page:', function () {
                 await checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
 
                 logger.info(`AND  set the valid expire date`);
-                checkoutPage.setExpireDate(checkoutPage.generateValidExpireDate());
+                await checkoutPage.setExpireDate(checkoutPage.generateValidExpireDate());
 
                 logger.info(`AND  set the valid CVC `);
-                checkoutPage.setCvc(checkoutPage.generateValidCvc());
+                await checkoutPage.setCvc(checkoutPage.generateValidCvc());
 
                 logger.info(`THEN purchase button is enabled `);
                 expect(checkoutPage.isPurchaseButtonEnabled()).toBe(true, "Purchase button is disabled");

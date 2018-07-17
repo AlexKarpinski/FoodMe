@@ -49,8 +49,9 @@ describe('Checkout Page:', function () {
 
                 logger.info(`THEN purchase button is enabled `);
                 expect(checkoutPage.isPurchaseButtonEnabled()).toBe(true, "Purchase button is disabled");
-
                 await checkoutPage.purchaseButtonClick();
+
+                logger.info(`AND confirm page is opened `);
                 expect(confirmPage.getFinalMessage()).toBe("Thank you for your order!", "Purchase button is disabled");
 
             });

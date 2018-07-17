@@ -60,12 +60,12 @@ let orderPage = function () {
         return this.getDishPriceElementFromByIndex(index).getText()
     };
 
-    this.getDishNameElementInMenuByIndex = function (index) {
-        return element(by.xpath(`//ng-view/div[2]/div[1]/ul/li[${index + 1}]/a/span[1]`))
+    this.getDishNameElementInMenuByIndex = async function (index) {
+        return await element(by.xpath(`//ng-view/div[2]/div[1]/ul/li[${index + 1}]/a/span[1]`))
     };
 
-    this.getDishPriceElementFromByIndex = function (index) {
-        return element(by.xpath(`//ng-view/div[2]/div[1]/ul/li[${index + 1}]/a/span[2]`))
+    this.getDishPriceElementFromByIndex = async function (index) {
+        return await element(by.xpath(`//ng-view/div[2]/div[1]/ul/li[${index + 1}]/a/span[2]`))
     };
 
     this.calculateOrderSum = async function (dishesAddedToOrder) {

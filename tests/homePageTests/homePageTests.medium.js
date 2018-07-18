@@ -1,9 +1,9 @@
-let ratingData = require('../../testing-data/ratingData.module.js');
-let homePage = require('../../pages/homePage.js');
-let helper = require('../../helper/helper.js');
-let using = require('jasmine-data-provider');
+let ratingData = require("../../testing-data/ratingData.module.js");
+let homePage = require("../../pages/homePage.js");
+let helper = require("../../helper/helper.js");
+let using = require("jasmine-data-provider");
 
-describe('Home Page: ', function () {
+describe("Home Page: ", function () {
 
     beforeAll(function () {
         homePage.open()
@@ -12,8 +12,8 @@ describe('Home Page: ', function () {
         homePage.reload()
     });
 
-    describe('Filter by rating: ', function () {
-        it('Clear the rating', async function () {
+    describe("Filter by rating: ", function () {
+        it("Clear the rating", async function () {
 
             logger.info("WHEN User sets the rating");
             homePage.setRating(helper.getRandomInt(1, 5));
@@ -25,8 +25,8 @@ describe('Home Page: ', function () {
             expect(homePage.getNumberOfRestaurants()).toEqual(ratingData.totalNumberOfResults, "Count of restaurants after the rating clearing is incorrect")
         })
     });
-    describe('Filter by price: ', function () {
-        it('Clear the price', async function () {
+    describe("Filter by price: ", function () {
+        it("Clear the price", async function () {
 
             logger.info("WHEN User sets the rating");
             homePage.setPrice(helper.getRandomInt(1, 5));
@@ -38,8 +38,8 @@ describe('Home Page: ', function () {
             expect(homePage.getNumberOfRestaurants()).toEqual(ratingData.totalNumberOfResults, "Count of restaurants after the price clearing is incorrect")
         })
     });
-    describe('Filter by combined parameter: ', function () {
-        it('Rating + price clearing', async function () {
+    describe("Filter by combined parameter: ", function () {
+        it("Rating + price clearing", async function () {
 
             let indexOfDataSet = helper.getRandomInt(0, ratingData.combinations.length);
 

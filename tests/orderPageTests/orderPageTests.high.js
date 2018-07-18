@@ -1,8 +1,8 @@
-let orderPage = require('../../pages/orderPage.js');
-let ratingData = require('../../testing-data/ratingData.module.js');
-let helper = require('../../helper/helper.js');
+let orderPage = require("../../pages/orderPage.js");
+let ratingData = require("../../testing-data/ratingData.module.js");
+let helper = require("../../helper/helper.js");
 
-describe('Order Page: ', function () {
+describe("Order Page: ", function () {
     let originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 
     beforeAll(function () {
@@ -20,7 +20,7 @@ describe('Order Page: ', function () {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
     });
 
-    it('Create order with random dishes and click checkout', async function () {
+    it("Create order with random dishes and click checkout", async function () {
         logger.info("WHEN User user adds dishes into the order");
         let dishesData = orderPage.generateDishesData();
         await orderPage.addRandomDishesToOrder(await dishesData);

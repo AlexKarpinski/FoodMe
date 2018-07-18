@@ -1,17 +1,17 @@
-let homePage = require('../../pages/homePage.js');
-let orderPage = require('../../pages/orderPage.js');
-let checkoutPage = require('../../pages/checkoutPage.js');
-let confirmPage = require('../../pages/confirmPage.js');
-let using = require('jasmine-data-provider');
-let ratingData = require('../../testing-data/ratingData.module.js');
-let checkoutData = require('../../testing-data/checkoutData.module.js');
-let helper = require('../../helper/helper.js');
+let homePage = require("../../pages/homePage.js");
+let orderPage = require("../../pages/orderPage.js");
+let checkoutPage = require("../../pages/checkoutPage.js");
+let confirmPage = require("../../pages/confirmPage.js");
+let using = require("jasmine-data-provider");
+let ratingData = require("../../testing-data/ratingData.module.js");
+let checkoutData = require("../../testing-data/checkoutData.module.js");
+let helper = require("../../helper/helper.js");
 
 
-describe('Checkout Page:', function () {
+describe("Checkout Page:", function () {
     let originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 
-    beforeAll(async function () {
+    beforeAll( async function () {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 300000;
         logger.info("TEST PREPARATION");
     });
@@ -20,7 +20,7 @@ describe('Checkout Page:', function () {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
     });
 
-    describe('Positive: User may pay the order with credit card: ', function () {
+    describe("Positive: User may pay the order with credit card: ", function () {
         using(checkoutData.cardTypes, function (data, description) {
             it(data.description, async function () {
 

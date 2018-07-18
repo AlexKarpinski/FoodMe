@@ -1,12 +1,12 @@
-let homePage = require('../pages/homePage.js');
-let helper = require('../helper/helper.js');
-let ratingData = require('../testing-data/ratingData.module.js');
+let homePage = require("../pages/homePage.js");
+let helper = require("../helper/helper.js");
+let ratingData = require("../testing-data/ratingData.module.js");
 
 let orderPage = function () {
 
-    let listOfDishes = element.all(by.xpath('//ng-view/div[2]/div[1]/ul/li[@ng-repeat = "menuItem in restaurant.menuItems"]'));
-    let menu = element(by.xpath('//ng-view/div[2]/div[1]/ul/li[1]/a'));
-    let totalSum = element(by.xpath('//ng-view/div[2]/div[2]/form/p/b'));
+    let listOfDishes = element.all(by.xpath("//ng-view/div[2]/div[1]/ul/li[@ng-repeat = 'menuItem in restaurant.menuItems']"));
+    let menu = element(by.xpath("//ng-view/div[2]/div[1]/ul/li[1]/a"));
+    let totalSum = element(by.xpath("//ng-view/div[2]/div[2]/form/p/b"));
     let checkoutButton = element(by.xpath("//div[@ng-show = 'cart.items.length']"));
 
     this.openOrderForRestaurantByIndex = function (restaurantIndex) {
@@ -14,7 +14,7 @@ let orderPage = function () {
         logger.info(`WHEN user chooses restaurant # ${restaurantIndex} at the home page`);
         this.getRestaurantByIndex(restaurantIndex).click();
         logger.info(`THEN Order menu is presented`);
-        browser.wait(EC.visibilityOf(menu), 10000, 'Menu is not visible')
+        browser.wait(EC.visibilityOf(menu), 10000, "Menu is not visible")
     };
 
     this.getRestaurantByIndex = function (restaurantIndex) {
@@ -33,12 +33,12 @@ let orderPage = function () {
         for (let i = 0; i < numberTimesToAdd; i++) {
             this.getDishNameElementInMenuByIndex(index).click()
         }
-        browser.wait(this.isDishAddedToOrder(index, numberTimesToAdd), 10000, 'order is not visible')
+        browser.wait(this.isDishAddedToOrder(index, numberTimesToAdd), 10000, "order is not visible")
     };
 
     this.isDishAddedToOrder = async function (index, numberOfTimesToAdd) {
-        let el = element.all(by.xpath('//div[contains(@class,"fm-cart")]//li'));
-        browser.wait(EC.presenceOf(el), 10000, 'order is not visible');
+        let el = element.all(by.xpath("//div[contains(@class,'fm-cart')]//li"));
+        browser.wait(EC.presenceOf(el), 10000, "order is not visible");
         let count = await el.count();
         let isDishAddedToOrder = false;
         for (let i = 0; i < count; i++) {
@@ -129,11 +129,11 @@ let orderPage = function () {
     };
 
     this.cleanOrder = async function () {
-        let countOfPosition = await element.all(by.xpath('//*[@class="icon-remove-sign"]')).count();
+        let countOfPosition = await element.all(by.xpath("//*[@class='icon-remove-sign']")).count();
 
         if (countOfPosition > 0){
             for (let i = 0; i < countOfPosition; i++){
-               await element(by.xpath('//a[@ng-click="cart.remove(item)"]')).click()
+               await element(by.xpath("//a[@ng-click='cart.remove(item)']")).click()
             }
         }
     };

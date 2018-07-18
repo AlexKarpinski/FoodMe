@@ -1,9 +1,9 @@
-let ratingData = require('../../testing-data/ratingData.module.js');
-let homePage = require('../../pages/homePage.js');
-let helper = require('../../helper/helper.js');
-let using = require('jasmine-data-provider');
+let ratingData = require("../../testing-data/ratingData.module.js");
+let homePage = require("../../pages/homePage.js");
+let helper = require("../../helper/helper.js");
+let using = require("jasmine-data-provider");
 
-describe('Home Page: ', function () {
+describe("Home Page: ", function () {
     let originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 
     beforeAll(function () {
@@ -18,9 +18,9 @@ describe('Home Page: ', function () {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
     });
 
-    describe('Filter by rating: ', function () {
+    describe("Filter by rating: ", function () {
         using(ratingData.ratings, function (data, description) {
-            it('Rating: ' + description + ' stars', async function () {
+            it("Rating: " + description + " stars", async function () {
                 logger.info(`WHEN User sets the rating ${data.rating} star`);
                 homePage.setRating(data.rating);
 
@@ -36,9 +36,9 @@ describe('Home Page: ', function () {
             })
         });
     });
-    describe('Filter by price: ', function () {
+    describe("Filter by price: ", function () {
         using(ratingData.prices, function (data, description) {
-            it('Price: ' + description + ' stars', async function () {
+            it("Price: " + description + " stars", async function () {
 
                 logger.info(`WHEN User sets the price ${data.price} star`);
                 homePage.setPrice(data.price);
@@ -55,8 +55,8 @@ describe('Home Page: ', function () {
             })
         });
     });
-    describe('Filter by combined parameter: ', function () {
-        it('Rating + price combination', async function () {
+    describe("Filter by combined parameter: ", function () {
+        it("Rating + price combination", async function () {
             let indexOfDataSet = helper.getRandomInt(0, ratingData.combinations.length);
             logger.info(`WHEN User sets the rating ${ratingData.combinations[indexOfDataSet].rating} star`);
 
@@ -69,7 +69,7 @@ describe('Home Page: ', function () {
             expect(homePage.getNumberOfRestaurants()).toBe(ratingData.combinations[indexOfDataSet].numberOfRestaurant)
 
         });
-        it('Price + rating combination', async function () {
+        it("Price + rating combination", async function () {
             let indexOfDataSet = helper.getRandomInt(0, ratingData.combinations.length);
             logger.info(`WHEN User sets the price ${(ratingData.combinations[indexOfDataSet].price)} star`);
             homePage.setPrice((ratingData.combinations[indexOfDataSet].price));
@@ -83,8 +83,8 @@ describe('Home Page: ', function () {
 
         });
     });
-    describe('Filter by cuisine: ', function () {
-        it('random set of cuisines', async function () {
+    describe("Filter by cuisine: ", function () {
+        it("random set of cuisines", async function () {
             logger.info(`WHEN User sets the cuisine`);
             let indexOfDataSet = helper.getRandomInt(0, ratingData.cuisine.length);
             homePage.setCuisine(ratingData.cuisine[indexOfDataSet].type);

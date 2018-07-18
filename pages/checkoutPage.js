@@ -1,10 +1,10 @@
-let homePage = require('../pages/homePage.js');
-let orderPage = require('../pages/orderPage.js');
-let helper = require('../helper/helper.js');
-let dateFormat = require('dateformat');
+let homePage = require("../pages/homePage.js");
+let orderPage = require("../pages/orderPage.js");
+let helper = require("../helper/helper.js");
+let dateFormat = require("dateformat");
 let checkoutPage = function () {
 
-    const NEGATIVE_COLOR = 'rgb(233, 50, 45)';
+    const NEGATIVE_COLOR = "rgb(233, 50, 45)";
     let inputCardTypeField = element(by.xpath("//select[@name = 'ccType']"));
     let cardNumberField = element(by.xpath("//input[@name = 'ccNum']"));
     let expireDateField = element(by.xpath("//input[@name = 'ccExp']"));
@@ -61,15 +61,15 @@ let checkoutPage = function () {
     };
 
     this.isCardNumberHighlightedInNegativeColor = async function () {
-        return await (await cardNumberField.getCssValue('border-color') === NEGATIVE_COLOR);
+        return await (await cardNumberField.getCssValue("border-color") === NEGATIVE_COLOR);
     };
 
     this.isExpireDateHighlightedInNegativeColor = async function () {
-        return await (await expireDateField.getCssValue('border-color') === NEGATIVE_COLOR);
+        return await (await expireDateField.getCssValue("border-color") === NEGATIVE_COLOR);
     };
 
     this.isCvcHighlightedInNegativeColor = async function () {
-        return await (await cvcField.getCssValue('border-color') === NEGATIVE_COLOR);
+        return await (await cvcField.getCssValue("border-color") === NEGATIVE_COLOR);
     };
 
     this.purchaseButtonClick = async function () {

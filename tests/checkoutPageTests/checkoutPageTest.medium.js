@@ -1,13 +1,13 @@
-let homePage = require('../../pages/homePage.js');
-let orderPage = require('../../pages/orderPage.js');
-let checkoutPage = require('../../pages/checkoutPage.js');
-let using = require('jasmine-data-provider');
-let ratingData = require('../../testing-data/ratingData.module.js');
-let checkoutData = require('../../testing-data/checkoutData.module.js');
-let helper = require('../../helper/helper.js');
+let homePage = require("../../pages/homePage.js");
+let orderPage = require("../../pages/orderPage.js");
+let checkoutPage = require("../../pages/checkoutPage.js");
+let using = require("jasmine-data-provider");
+let ratingData = require("../../testing-data/ratingData.module.js");
+let checkoutData = require("../../testing-data/checkoutData.module.js");
+let helper = require("../../helper/helper.js");
 
 
-describe('Checkout Page:', function () {
+describe("Checkout Page:", function () {
     let originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 
     beforeAll(async function () {
@@ -29,10 +29,10 @@ describe('Checkout Page:', function () {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
     });
 
-    describe('Negative: ', function () {
-        describe('Negative: Payment button is disabled:', function () {
-            describe('All data is filled in but one field contains invalid value: ', function () {
-                it('Card Number contains invalid value', async function () {
+    describe("Negative: ", function () {
+        describe("Negative: Payment button is disabled:", function () {
+            describe("All data is filled in but one field contains invalid value: ", function () {
+                it("Card Number contains invalid value", async function () {
                     logger.info(`WHEN user select the card type  `);
                     await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, await checkoutData.cardTypes.length)].type);
 
@@ -48,7 +48,7 @@ describe('Checkout Page:', function () {
                     logger.info(`THEN purchase button is disabled `);
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false, "Purchase button is enabled")
                 });
-                it('Expire Date contains invalid value', async function () {
+                it("Expire Date contains invalid value", async function () {
                     logger.info(`WHEN user select the type `);
                     await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
 
@@ -63,7 +63,7 @@ describe('Checkout Page:', function () {
                     logger.info(`THEN purchase button is enabled `);
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false, "Purchase button is enabled")
                 });
-                it('CVC contains invalid value', async function () {
+                it("CVC contains invalid value", async function () {
                     logger.info(`WHEN user select the type  `);
                     await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
 
@@ -80,8 +80,8 @@ describe('Checkout Page:', function () {
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false)
                 })
             });
-            describe('Required field is empty: ', function () {
-                it('Card Number is empty', async function () {
+            describe("Required field is empty: ", function () {
+                it("Card Number is empty", async function () {
                     logger.info(`WHEN user select the type `);
                     await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
 
@@ -95,7 +95,7 @@ describe('Checkout Page:', function () {
                     logger.info(`THEN purchase button is enabled `);
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false, "Purchase button is enabled")
                 });
-                it('Expire Date is empty', async function () {
+                it("Expire Date is empty", async function () {
                     logger.info(`WHEN user select the type `);
                     await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
 
@@ -109,7 +109,7 @@ describe('Checkout Page:', function () {
                     logger.info(`THEN purchase button is enabled `);
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false, "Purchase button is enabled")
                 });
-                it('CVC is empty', async function () {
+                it("CVC is empty", async function () {
                     logger.info(`WHEN user select the type `);
                     await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
 
@@ -124,39 +124,39 @@ describe('Checkout Page:', function () {
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false, "Purchase button is enabled")
                 })
             });
-            describe('All fields are not filled', function () {
-                it('All fields are not filled', function () {
+            describe("All fields are not filled", function () {
+                it("All fields are not filled", function () {
                     logger.info(`WHEN user does not select the type of card and does not filled the fields `);
                     logger.info(`THEN purchase button is disabled `);
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false, "Purchase button is enabled")
                 })
             })
         });
-        describe('Card Number is highlighted in negative color is invalid value was entered', function () {
+        describe("Card Number is highlighted in negative color is invalid value was entered", function () {
             using(checkoutData.invalidCardNumbers, function (card, description) {
-                it('Card Number is highlighted in negative color is invalid value was entered', function () {
+                it("Card Number is highlighted in negative color is invalid value was entered", function () {
                     logger.info(`WHEN user select the  type `);
                     logger.info(`AND  set the ${card.description}`);
                     checkoutPage.setCardNumber(card.symbolSet);
-                    browser.wait(checkoutPage.isCardNumberHighlightedInNegativeColor, 10000, 'border color is not visible');
+                    browser.wait(checkoutPage.isCardNumberHighlightedInNegativeColor, 10000, "border color is not visible");
                     expect(checkoutPage.isCardNumberHighlightedInNegativeColor()).toBe(true)
                 })
             });
             using(checkoutData.invalidExpireDate, function (date, description) {
-                it('Expire date is highlighted in negative color is invalid value was entered', function () {
+                it("Expire date is highlighted in negative color is invalid value was entered", function () {
                     logger.info(`WHEN user select the type `);
                     logger.info(`AND  set the ${date.description}`);
                     checkoutPage.setExpireDate(date.symbolSet);
-                    browser.wait(checkoutPage.isExpireDateHighlightedInNegativeColor, 10000, 'border color is not visible');
+                    browser.wait(checkoutPage.isExpireDateHighlightedInNegativeColor, 10000, "border color is not visible");
                     expect(checkoutPage.isExpireDateHighlightedInNegativeColor()).toBe(true)
                 })
             });
             using(checkoutData.invalidCvc, function (cvc, description) {
-                it('Expire date is highlighted in negative color if invalid value was entered', function () {
+                it("Expire date is highlighted in negative color if invalid value was entered", function () {
                     logger.info(`WHEN user select the type `);
                     logger.info(`AND  set the ${cvc.description}`);
                     checkoutPage.setCvc(cvc.symbolSet);
-                    browser.wait(checkoutPage.isCvcHighlightedInNegativeColor, 10000, 'border color is not visible');
+                    browser.wait(checkoutPage.isCvcHighlightedInNegativeColor, 10000, "border color is not visible");
                     expect(checkoutPage.isCvcHighlightedInNegativeColor()).toBe(true)
                 })
             })

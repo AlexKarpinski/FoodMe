@@ -22,7 +22,8 @@ describe("Home Page: ", function () {
             homePage.clearRating();
 
             logger.info(`THEN actual number of all restaurants`);
-            expect(homePage.getNumberOfRestaurants()).toEqual(ratingData.totalNumberOfResults, "Count of restaurants after the rating clearing is incorrect")
+            expect(homePage.getNumberOfRestaurants()).toEqual(ratingData.totalNumberOfResults,
+                "Count of restaurants after the rating clearing is incorrect")
         })
     });
     describe("Filter by price: ", function () {
@@ -35,7 +36,8 @@ describe("Home Page: ", function () {
             homePage.clearPrice();
 
             logger.info(`THEN actual number of all restaurants`);
-            expect(homePage.getNumberOfRestaurants()).toEqual(ratingData.totalNumberOfResults, "Count of restaurants after the price clearing is incorrect")
+            expect(homePage.getNumberOfRestaurants()).toEqual(ratingData.totalNumberOfResults,
+                "Count of restaurants after the price clearing is incorrect")
         })
     });
     describe("Filter by combined parameter: ", function () {
@@ -55,7 +57,8 @@ describe("Home Page: ", function () {
             homePage.clearRating();
 
             logger.info(`THEN actual number of all restaurants is correct`);
-            expect(homePage.getNumberOfRestaurants()).toEqual(ratingData.totalNumberOfResults, "Count of restaurants after the price and rating clearing is incorrect")
+            expect(homePage.getNumberOfRestaurants()).toEqual(ratingData.totalNumberOfResults,
+                "Count of restaurants after the price and rating clearing is incorrect")
         })
     });
 });

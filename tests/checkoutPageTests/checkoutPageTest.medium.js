@@ -34,10 +34,12 @@ describe("Checkout Page:", function () {
             describe("All data is filled in but one field contains invalid value: ", function () {
                 it("Card Number contains invalid value", async function () {
                     logger.info(`WHEN user select the card type  `);
-                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, await checkoutData.cardTypes.length)].type);
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0,
+                        await checkoutData.cardTypes.length)].type);
 
                     logger.info(`AND  set the invalid card number`);
-                    await checkoutPage.setCardNumber(checkoutData.invalidCardNumbers[helper.getRandomInt(0, checkoutData.invalidCardNumbers.length)].symbolSet);
+                    await checkoutPage.setCardNumber(checkoutData.invalidCardNumbers[helper.getRandomInt(0,
+                        checkoutData.invalidCardNumbers.length)].symbolSet);
 
                     logger.info(`AND  set the valid expire date`);
                     checkoutPage.setExpireDate(await checkoutPage.generateValidExpireDate());
@@ -50,13 +52,15 @@ describe("Checkout Page:", function () {
                 });
                 it("Expire Date contains invalid value", async function () {
                     logger.info(`WHEN user select the type `);
-                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0,
+                        checkoutData.cardTypes.length)].type);
 
                     logger.info(`AND  set the valid card number`);
                     await checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
 
                     logger.info(`AND  set the invalid expire date`);
-                    await checkoutPage.setExpireDate(checkoutData.invalidExpireDate[helper.getRandomInt(0, checkoutData.invalidExpireDate.length)].symbolSet);
+                    await checkoutPage.setExpireDate(checkoutData.invalidExpireDate[helper.getRandomInt(0,
+                        checkoutData.invalidExpireDate.length)].symbolSet);
                     logger.info(`AND  set the valid CVC `);
                     await checkoutPage.setCvc(await checkoutPage.generateValidCvc());
 
@@ -65,7 +69,8 @@ describe("Checkout Page:", function () {
                 });
                 it("CVC contains invalid value", async function () {
                     logger.info(`WHEN user select the type  `);
-                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0,
+                        checkoutData.cardTypes.length)].type);
 
                     logger.info(`AND  set the valid card number`);
                     await checkoutPage.setCardNumber(checkoutPage.generateValidCardNumber());
@@ -74,7 +79,8 @@ describe("Checkout Page:", function () {
                     await checkoutPage.setExpireDate(await checkoutPage.generateValidExpireDate());
 
                     logger.info(`AND  set the invalid CVC `);
-                    await checkoutPage.setCvc(checkoutData.invalidCvc[helper.getRandomInt(0, checkoutData.invalidCvc.length)].symbolSet);
+                    await checkoutPage.setCvc(checkoutData.invalidCvc[helper.getRandomInt(0,
+                        checkoutData.invalidCvc.length)].symbolSet);
 
                     logger.info(`THEN purchase button is enabled `);
                     expect(checkoutPage.isPurchaseButtonEnabled()).toBe(false)
@@ -83,7 +89,8 @@ describe("Checkout Page:", function () {
             describe("Required field is empty: ", function () {
                 it("Card Number is empty", async function () {
                     logger.info(`WHEN user select the type `);
-                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0,
+                        checkoutData.cardTypes.length)].type);
 
                     logger.info(`AND  does not set the card number`);
                     logger.info(`AND  set the valid expire date`);
@@ -97,7 +104,8 @@ describe("Checkout Page:", function () {
                 });
                 it("Expire Date is empty", async function () {
                     logger.info(`WHEN user select the type `);
-                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0,
+                        checkoutData.cardTypes.length)].type);
 
                     logger.info(`AND  set the valid card number`);
                     await checkoutPage.setCardNumber(await checkoutPage.generateValidCardNumber());
@@ -111,7 +119,8 @@ describe("Checkout Page:", function () {
                 });
                 it("CVC is empty", async function () {
                     logger.info(`WHEN user select the type `);
-                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0, checkoutData.cardTypes.length)].type);
+                    await  checkoutPage.selectCardType(checkoutData.cardTypes[helper.getRandomInt(0,
+                        checkoutData.cardTypes.length)].type);
 
                     logger.info(`AND  set the invalid card number`);
                     await checkoutPage.setCardNumber(await checkoutPage.generateValidCardNumber());
@@ -138,7 +147,8 @@ describe("Checkout Page:", function () {
                     logger.info(`WHEN user select the  type `);
                     logger.info(`AND  set the ${card.description}`);
                     checkoutPage.setCardNumber(card.symbolSet);
-                    browser.wait(checkoutPage.isCardNumberHighlightedInNegativeColor, 10000, "border color is not visible");
+                    browser.wait(checkoutPage.isCardNumberHighlightedInNegativeColor, 10000,
+                        "border color is not visible");
                     expect(checkoutPage.isCardNumberHighlightedInNegativeColor()).toBe(true)
                 })
             });
@@ -147,7 +157,8 @@ describe("Checkout Page:", function () {
                     logger.info(`WHEN user select the type `);
                     logger.info(`AND  set the ${date.description}`);
                     checkoutPage.setExpireDate(date.symbolSet);
-                    browser.wait(checkoutPage.isExpireDateHighlightedInNegativeColor, 10000, "border color is not visible");
+                    browser.wait(checkoutPage.isExpireDateHighlightedInNegativeColor, 10000,
+                        "border color is not visible");
                     expect(checkoutPage.isExpireDateHighlightedInNegativeColor()).toBe(true)
                 })
             });
@@ -156,7 +167,8 @@ describe("Checkout Page:", function () {
                     logger.info(`WHEN user select the type `);
                     logger.info(`AND  set the ${cvc.description}`);
                     checkoutPage.setCvc(cvc.symbolSet);
-                    browser.wait(checkoutPage.isCvcHighlightedInNegativeColor, 10000, "border color is not visible");
+                    browser.wait(checkoutPage.isCvcHighlightedInNegativeColor, 10000,
+                        "border color is not visible");
                     expect(checkoutPage.isCvcHighlightedInNegativeColor()).toBe(true)
                 })
             })

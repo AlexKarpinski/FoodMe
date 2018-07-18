@@ -31,7 +31,8 @@ describe("Home Page: ", function () {
 
                 for (let i = 0; i < numberOfRestaurants; i++) {
                     logger.info(`AND The number of stars is equal to the set up rating`);
-                    expect(homePage.getRatingValueForRestaurantInList(i)).toBe(data.rating, "Count of selected restaurants is incorrect")
+                    expect(homePage.getRatingValueForRestaurantInList(i)).toBe(data.rating,
+                        "Count of selected restaurants is incorrect")
                 }
             })
         });
@@ -50,7 +51,8 @@ describe("Home Page: ", function () {
 
                 for (let i = 0; i < numberOfRestaurants; i++) {
                     logger.info(`AND The number of stars is equal to the set up price`);
-                    expect(homePage.getPriceValueForRestaurantInList(i)).toBe(data.price, "Count of selected restaurants is incorrect")
+                    expect(homePage.getPriceValueForRestaurantInList(i)).toBe(data.price,
+                        "Count of selected restaurants is incorrect")
                 }
             })
         });
@@ -90,7 +92,8 @@ describe("Home Page: ", function () {
             homePage.setCuisine(ratingData.cuisine[indexOfDataSet].type);
 
             logger.info("THEN The set of found restaurants is correct");
-            expect((homePage.getListOfRestaurantNames()).getText()).toEqual(ratingData.cuisine[indexOfDataSet].restaurants, "Count of selected restaurants is incorrect");
+            expect((homePage.getListOfRestaurantNames()).getText()).toEqual(ratingData.cuisine[indexOfDataSet].restaurants,
+                "Count of selected restaurants is incorrect");
         })
     })
 });

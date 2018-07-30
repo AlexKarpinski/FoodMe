@@ -3,7 +3,7 @@
 git clone https://github.com/MariyaMitko/FoodMe
 ```
 
-###Then load all dependencies:
+### Then load all dependencies:
 ```
 npm install
 ```
